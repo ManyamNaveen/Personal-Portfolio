@@ -47,7 +47,7 @@ const PRINCIPLES = [
 
 export default function Approach() {
   return (
-    <section className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-16 sm:py-24 border-t border-white/5" id="approach">
+    <section className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-8 sm:py-12 border-t border-white/5" id="approach">
       <div className="mb-12">
         <div className="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-wider mb-2">
           <span className="w-2 h-2 rounded-full bg-cyan-400"></span>

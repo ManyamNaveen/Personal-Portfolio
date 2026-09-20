@@ -2,8 +2,11 @@
 
 import React, { useState } from 'react';
 import { PORTFOLIO_DATA } from '@/data/portfolioData';
+import { useScrollReveal } from '@/components/useScrollReveal';
+import TypewriterText from '@/components/TypewriterText';
 
 export default function Contact() {
+  const sectionRef = useScrollReveal();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -46,25 +49,32 @@ export default function Contact() {
   };
 
   return (
-    <section className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-16 sm:py-24 border-t border-white/5" id="contact">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
+    <section 
+      ref={sectionRef}
+      className="reveal-section max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-5 sm:py-7 border-t border-slate-200 dark:border-white/5" 
+      id="contact"
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
         
         {/* Left: Contact Details */}
-        <div className="lg:col-span-5 space-y-6">
-          <div className="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-wider">
-            <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
+        <div className="lg:col-span-5 space-y-4 sm:space-y-5 stagger-item stagger-1">
+          <div className="inline-flex items-center gap-2 text-cyan-800 dark:text-cyan-400 font-mono text-xs uppercase tracking-wider px-3 py-1 rounded-full bg-cyan-100 dark:bg-cyan-950/40 border border-cyan-300 dark:border-cyan-500/30 font-bold">
+            <span className="w-2 h-2 rounded-full bg-cyan-600 dark:bg-cyan-400 radar-beacon-cyan"></span>
             Get In Touch
           </div>
           
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-            Let&apos;s build something <span className="gradient-text">reliable</span>.
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 dark:text-white">
+            <TypewriterText 
+              text="Let's build something reliable." 
+              gradientWord="reliable." 
+            />
           </h2>
 
-          <p className="text-slate-400 text-sm leading-relaxed">
+          <p className="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
             Whether you are looking for a dedicated backend engineer to lead a payments integration, architect high-load loan systems, or optimize existing Spring Boot services, my inbox is open.
           </p>
 
-          <div className="space-y-3 pt-2">
+          <div className="space-y-3 pt-1">
             
             {/* Email */}
             <a

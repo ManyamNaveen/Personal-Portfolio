@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { PORTFOLIO_DATA } from '@/data/portfolioData';
+import BackgroundParticles from '@/components/BackgroundParticles';
 
 export default function Hero() {
   const [displayText, setDisplayText] = useState('');
@@ -46,7 +47,10 @@ export default function Hero() {
       className="relative max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 min-h-[min(calc(100vh-5rem),850px)] flex items-center justify-center py-6 sm:py-8 lg:py-10 overflow-hidden"
       id="home"
     >
-      <div className="absolute inset-0 bg-gradient-to-r from-[#080C14]/90 via-[#080C14]/60 to-[#080C14]/85 pointer-events-none -z-0"></div>
+      {/* Confined Hero-Only Particle Field */}
+      <BackgroundParticles />
+
+      <div className="absolute inset-0 bg-gradient-to-r from-[#080C14]/90 via-[#080C14]/60 to-[#080C14]/85 dark:block hidden pointer-events-none -z-0"></div>
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center relative z-10 w-full">
 
@@ -73,7 +77,7 @@ export default function Hero() {
           <div className="flex items-center gap-3 pt-0.5">
             <a
               aria-label="LinkedIn"
-              className="w-9 h-9 rounded-full glass-card border border-white/10 flex items-center justify-center text-slate-300 hover:text-cyan-400 hover:border-cyan-400/50 transition-all"
+              className="w-9 h-9 rounded-full bg-white dark:bg-transparent glass-card border border-slate-300 dark:border-white/10 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:border-cyan-500 dark:hover:border-cyan-400/50 shadow-sm transition-all"
               href={PORTFOLIO_DATA.personal.linkedin}
               rel="noopener noreferrer"
               target="_blank"
@@ -85,7 +89,7 @@ export default function Hero() {
 
             <a
               aria-label="GitHub"
-              className="w-9 h-9 rounded-full glass-card border border-white/10 flex items-center justify-center text-slate-300 hover:text-cyan-400 hover:border-cyan-400/50 transition-all"
+              className="w-9 h-9 rounded-full bg-white dark:bg-transparent glass-card border border-slate-300 dark:border-white/10 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:border-cyan-500 dark:hover:border-cyan-400/50 shadow-sm transition-all"
               href={PORTFOLIO_DATA.personal.github}
               rel="noopener noreferrer"
               target="_blank"
@@ -97,7 +101,7 @@ export default function Hero() {
 
             <a
               aria-label="Email"
-              className="w-9 h-9 rounded-full glass-card border border-white/10 flex items-center justify-center text-slate-300 hover:text-cyan-400 hover:border-cyan-400/50 transition-all"
+              className="w-9 h-9 rounded-full bg-white dark:bg-transparent glass-card border border-slate-300 dark:border-white/10 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:border-cyan-500 dark:hover:border-cyan-400/50 shadow-sm transition-all"
               href={`mailto:${PORTFOLIO_DATA.personal.email}`}
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -107,7 +111,7 @@ export default function Hero() {
 
             <a
               aria-label="Phone"
-              className="w-9 h-9 rounded-full glass-card border border-white/10 flex items-center justify-center text-slate-300 hover:text-cyan-400 hover:border-cyan-400/50 transition-all"
+              className="w-9 h-9 rounded-full bg-white dark:bg-transparent glass-card border border-slate-300 dark:border-white/10 flex items-center justify-center text-slate-700 dark:text-slate-300 hover:text-cyan-600 dark:hover:text-cyan-400 hover:border-cyan-500 dark:hover:border-cyan-400/50 shadow-sm transition-all"
               href={`tel:${PORTFOLIO_DATA.personal.phone.replace(/\s+/g, '')}`}
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -129,11 +133,11 @@ export default function Hero() {
             </a>
 
             <a
-              className="px-5 py-2.5 rounded-xl glass-card border border-white/20 text-slate-200 hover:text-white hover:border-cyan-400/50 font-semibold text-sm transition-all flex items-center gap-2"
+              className="px-5 py-2.5 rounded-xl glass-card border border-slate-300 dark:border-white/20 text-slate-800 dark:text-slate-200 hover:text-cyan-600 dark:hover:text-white hover:border-cyan-400/50 font-semibold text-sm transition-all flex items-center gap-2 shadow-sm"
               download=""
               href={PORTFOLIO_DATA.personal.resumeUrl}
             >
-              <svg className="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-cyan-600 dark:text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
               </svg>
               <span>Download CV</span>
@@ -142,14 +146,14 @@ export default function Hero() {
 
           {/* Sleek Integrated Metrics (No heavy box-in-box look) */}
           <div className="pt-2">
-            <div className="glass-card px-5 py-3 rounded-2xl border border-white/10 flex items-center gap-6 max-w-xs">
-              <div className="pr-5 border-r border-white/10">
-                <div className="text-2xl font-extrabold text-amber-400 font-mono">3.8+</div>
-                <div className="text-[11px] text-slate-400 font-medium">Experiences</div>
+            <div className="glass-card px-5 py-3 rounded-2xl border border-slate-300 dark:border-white/10 flex items-center gap-6 max-w-xs shadow-sm">
+              <div className="pr-5 border-r border-slate-200 dark:border-white/10">
+                <div className="text-2xl font-extrabold text-amber-600 dark:text-amber-400 font-mono">3.8+</div>
+                <div className="text-[11px] text-slate-600 dark:text-slate-400 font-medium">Experiences</div>
               </div>
               <div>
-                <div className="text-2xl font-extrabold text-white font-mono">10+</div>
-                <div className="text-[11px] text-slate-400 font-medium">Projects Done</div>
+                <div className="text-2xl font-extrabold text-slate-900 dark:text-white font-mono">10+</div>
+                <div className="text-[11px] text-slate-600 dark:text-slate-400 font-medium">Projects Done</div>
               </div>
             </div>
           </div>

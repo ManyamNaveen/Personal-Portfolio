@@ -25,6 +25,8 @@ next-env.d.ts
 
 # Temporary & Large Media
 screen.png
+*.mp4
+*.webm
 *.log
 scratch/
 

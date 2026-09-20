@@ -357,17 +357,27 @@ export const PORTFOLIO_DATA = {
     {
       name: "Spring Boot (Essential Skills)",
       issuer: "Scaler",
-      skills: "Spring Boot 3, Dependency Injection, REST APIs, JPA, Actuator"
+      skills: "Spring Boot 3, Dependency Injection, REST APIs, JPA, Actuator",
+      badge: "Framework Mastery",
+      badgeColor: "emerald"
     },
     {
       name: "Master Java Concurrency & Multithreading",
       issuer: "Scaler",
-      skills: "Thread Pools, Synchronizers, CompletableFuture, Concurrent Collections"
+      skills: "Thread Pools, Synchronizers, CompletableFuture, Concurrent Collections",
+      badge: "Core Engineering",
+      badgeColor: "cyan",
+      image: "/certificates/java-concurrency-multithreading.png",
+      pdfUrl: "/Certificate_Master Java Concurrency & Multithreading.pdf"
     },
     {
       name: "SQL Using AI",
       issuer: "AI for Techies",
-      skills: "Advanced Query Optimization, Analytical Functions, Index Strategy"
+      skills: "Advanced Query Optimization, Analytical Functions, Index Strategy",
+      badge: "AI & Databases",
+      badgeColor: "violet",
+      image: "/certificates/sql-with-ai.png",
+      pdfUrl: "/SQL_With_AI_Certificate.pdf"
     }
   ]
 };

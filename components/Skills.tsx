@@ -1,122 +1,149 @@
 'use client';
 
 import React from 'react';
+import { useScrollReveal } from '@/components/useScrollReveal';
+import TypewriterText from '@/components/TypewriterText';
 
 const SKILL_GROUPS = [
   {
     num: '01',
     title: 'Languages & Core',
+    iconSymbol: '☕',
+    iconColor: 'from-cyan-500/20 to-blue-500/20 text-cyan-400 border-cyan-500/30',
     skills: [
-      { name: 'Java 21', highlight: false },
-      { name: 'Java 8', highlight: false },
-      { name: 'SQL (Advanced)', highlight: false },
-      { name: 'Multithreading & Concurrency', highlight: false },
-      { name: 'Streams & Lambdas', highlight: false },
-      { name: 'OOP & SOLID Principles', highlight: false },
+      { name: 'Java 21', symbol: '☕', highlight: true },
+      { name: 'Java 8', symbol: '☕', highlight: false },
+      { name: 'SQL (Advanced)', symbol: '💾', highlight: true },
+      { name: 'Multithreading & Concurrency', symbol: '⚡', highlight: true },
+      { name: 'Streams & Lambdas', symbol: '🔄', highlight: false },
+      { name: 'OOP & SOLID Principles', symbol: '🏛️', highlight: false },
     ],
   },
   {
     num: '02',
     title: 'Frameworks & Libraries',
+    iconSymbol: '🍃',
+    iconColor: 'from-emerald-500/20 to-teal-500/20 text-emerald-400 border-emerald-500/30',
     skills: [
-      { name: 'Spring Boot 3', highlight: true },
-      { name: 'Spring MVC', highlight: false },
-      { name: 'Spring Security (JWT, RBAC)', highlight: false },
-      { name: 'Spring Data JPA', highlight: false },
-      { name: 'Hibernate', highlight: false },
-      { name: 'Spring Scheduler', highlight: false },
+      { name: 'Spring Boot 3', symbol: '🍃', highlight: true },
+      { name: 'Spring MVC', symbol: '🌐', highlight: false },
+      { name: 'Spring Security (JWT, RBAC)', symbol: '🔒', highlight: true },
+      { name: 'Spring Data JPA', symbol: '🗄️', highlight: false },
+      { name: 'Hibernate', symbol: '📦', highlight: false },
+      { name: 'Spring Scheduler', symbol: '⏱️', highlight: false },
     ],
   },
   {
     num: '03',
     title: 'Databases & Caching',
+    iconSymbol: '🐘',
+    iconColor: 'from-violet-500/20 to-purple-500/20 text-violet-400 border-violet-500/30',
     skills: [
-      { name: 'PostgreSQL', highlight: false },
-      { name: 'Oracle', highlight: false },
-      { name: 'SQL Server', highlight: false },
-      { name: 'Redis', highlight: true },
-      { name: 'AWS S3', highlight: false },
+      { name: 'PostgreSQL', symbol: '🐘', highlight: true },
+      { name: 'Redis', symbol: '🔴', highlight: true },
+      { name: 'Oracle DB', symbol: '🏛️', highlight: false },
+      { name: 'SQL Server', symbol: '🗃️', highlight: false },
+      { name: 'AWS S3 Storage', symbol: '☁️', highlight: false },
     ],
   },
   {
     num: '04',
     title: 'Cloud & DevOps',
+    iconSymbol: '☁️',
+    iconColor: 'from-amber-500/20 to-yellow-500/20 text-amber-400 border-amber-500/30',
     skills: [
-      { name: 'AWS (EC2, S3, IAM)', highlight: false },
-      { name: 'SNS / SQS', highlight: false },
-      { name: 'Elastic Beanstalk', highlight: false },
-      { name: 'ECR', highlight: false },
-      { name: 'Docker', highlight: false },
-      { name: 'Git / Maven', highlight: false },
-      { name: 'JIRA / Postman', highlight: false },
-      { name: 'Swagger / OpenAPI', highlight: false },
+      { name: 'AWS (EC2, S3, IAM)', symbol: '☁️', highlight: false },
+      { name: 'Docker', symbol: '🐳', highlight: true },
+      { name: 'Git & GitHub', symbol: '🐙', highlight: false },
+      { name: 'Maven', symbol: '📦', highlight: false },
+      { name: 'Postman', symbol: '📮', highlight: false },
+      { name: 'Swagger / OpenAPI', symbol: '📑', highlight: true },
+      { name: 'SNS / SQS', symbol: '📨', highlight: false },
     ],
   },
   {
     num: '05',
     title: 'APIs & Integrations',
+    iconSymbol: '🔌',
+    iconColor: 'from-cyan-500/20 to-emerald-500/20 text-cyan-300 border-cyan-500/30',
     skills: [
-      { name: 'RESTful APIs', highlight: true },
-      { name: 'SOAP Services', highlight: false },
-      { name: 'JSON / XML / YAML', highlight: false },
-      { name: 'PhonePe Gateway', highlight: false },
-      { name: 'MSG91 (WhatsApp, SMS)', highlight: false },
-      { name: 'India Post APIs', highlight: false },
-      { name: 'Credit & Underwriting APIs', highlight: false },
+      { name: 'RESTful Web Services', symbol: '⚡', highlight: true },
+      { name: 'PhonePe Gateway', symbol: '💳', highlight: true },
+      { name: 'MSG91 (WhatsApp/SMS/IVR)', symbol: '📱', highlight: true },
+      { name: 'India Post Tracking', symbol: '📮', highlight: false },
+      { name: 'Credit Bureaus (Equifax/Clarity)', symbol: '🏦', highlight: true },
+      { name: 'SOAP & XML', symbol: '📜', highlight: false },
     ],
   },
   {
     num: '06',
-    title: 'Concepts & Frontend',
+    title: 'Architecture & Patterns',
+    iconSymbol: '📐',
+    iconColor: 'from-indigo-500/20 to-cyan-500/20 text-indigo-300 border-indigo-500/30',
     skills: [
-      { name: 'OOP & SOLID', highlight: false },
-      { name: 'Low-Level Design (LLD)', highlight: false },
-      { name: 'Singleton & Factory', highlight: false },
-      { name: 'Multi-tenant Architecture', highlight: false },
-      { name: 'Async & Batch Processing', highlight: false },
-      { name: 'Multithreading', highlight: false },
-      { name: 'Streams & Lambdas', highlight: false },
-      { name: 'Frontend: React / AngularJS', highlight: false },
+      { name: 'Low-Level Design (LLD)', symbol: '📐', highlight: true },
+      { name: 'Factory & Singleton Patterns', symbol: '🏭', highlight: false },
+      { name: 'Multi-Tenant Architecture', symbol: '🏢', highlight: true },
+      { name: 'Async Batch Processing', symbol: '⏱️', highlight: true },
+      { name: 'Clean Layered Architecture', symbol: '🏛️', highlight: false },
+      { name: 'React Frontend Integration', symbol: '⚛️', highlight: false },
     ],
   },
 ];
 
 export default function Skills() {
+  const sectionRef = useScrollReveal();
+
   return (
-    <section className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-16 sm:py-24 border-t border-white/5" id="skills">
-      <div className="mb-12">
-        <div className="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-wider mb-2">
-          <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
+    <section 
+      ref={sectionRef}
+      className="reveal-section max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-5 sm:py-7 border-t border-slate-200 dark:border-white/5" 
+      id="skills"
+    >
+      <div className="mb-6 sm:mb-8 stagger-item stagger-1">
+        <div className="inline-flex items-center gap-2 text-cyan-800 dark:text-cyan-400 font-mono text-xs uppercase tracking-wider mb-2 px-3 py-1 rounded-full bg-cyan-100 dark:bg-cyan-950/40 border border-cyan-300 dark:border-cyan-500/30 font-bold">
+          <span className="w-2 h-2 rounded-full bg-cyan-600 dark:bg-cyan-400 radar-beacon-cyan"></span>
           Technical Proficiencies
         </div>
-        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-          Technical Skills &amp; Core Tooling
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-3">
+          <span>🛠️</span>
+          <TypewriterText text="Technical Skills & Core Tooling" />
         </h2>
-        <p className="text-slate-400 text-sm mt-1">
+        <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
           Categorized expertise derived from 3.8+ years of production engineering.
         </p>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {SKILL_GROUPS.map((group, idx) => (
-          <div key={idx} className="glass-card p-6 rounded-2xl border border-white/10">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center font-mono font-bold text-xs">
-                {group.num}
+          <div 
+            key={idx} 
+            className={`glass-card interactive-card gradient-beam-top p-6 rounded-2xl border border-white/10 stagger-item stagger-${idx + 1}`}
+          >
+            <div className="flex items-center justify-between mb-5">
+              <div className="flex items-center gap-3">
+                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${group.iconColor} border flex items-center justify-center font-bold text-base shadow-sm`}>
+                  {group.iconSymbol}
+                </div>
+                <div>
+                  <h3 className="text-white font-bold text-base tracking-tight">{group.title}</h3>
+                  <span className="text-[10px] font-mono text-slate-400">Category {group.num}</span>
+                </div>
               </div>
-              <h3 className="text-white font-bold text-base">{group.title}</h3>
             </div>
+
             <div className="flex flex-wrap gap-2">
               {group.skills.map((skill, sIdx) => (
                 <span
                   key={sIdx}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-mono transition-colors ${
+                  className={`tech-tag-interactive px-3 py-1.5 rounded-lg text-xs font-mono flex items-center gap-1.5 shadow-sm ${
                     skill.highlight
-                      ? 'bg-slate-900 border border-cyan-500/30 text-cyan-300'
-                      : 'bg-slate-900 border border-slate-700 text-slate-200 hover:border-slate-500'
+                      ? 'bg-slate-900 border border-cyan-500/40 text-cyan-300 shadow-[0_0_12px_rgba(6,182,212,0.12)]'
+                      : 'bg-slate-900 border border-slate-700/80 text-slate-200'
                   }`}
                 >
-                  {skill.name}
+                  <span className="text-[13px]">{skill.symbol}</span>
+                  <span>{skill.name}</span>
                 </span>
               ))}
             </div>

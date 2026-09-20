@@ -156,10 +156,23 @@ html:not(.dark) #home > div:first-child {
   display: none !important;
 }
 
+html:not(.dark) [data-purpose="hero-portrait"] .blur-3xl {
+  opacity: 0.12 !important;
+  filter: blur(50px) !important;
+}
+
+html:not(.dark) [data-purpose="hero-portrait"] .animate-spin-slow {
+  border-color: rgba(6, 182, 212, 0.15) !important;
+}
+
+html:not(.dark) [data-purpose="hero-portrait"] .border-cyan-500\/20 {
+  border-color: rgba(6, 182, 212, 0.1) !important;
+}
+
 html:not(.dark) [data-purpose="hero-portrait"] .rounded-full.overflow-hidden {
-  background: linear-gradient(to bottom, #cbd5e1, #f1f5f9) !important;
-  border-color: #06b6d4 !important;
-  box-shadow: 0 0 40px rgba(6, 182, 212, 0.2) !important;
+  background: linear-gradient(to bottom, #e2e8f0, #f8fafc) !important;
+  border-color: #38bdf8 !important;
+  box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.1), 0 0 16px rgba(6, 182, 212, 0.08) !important;
 }
 
 html:not(.dark) [data-purpose="hero-portrait"] .rounded-full.overflow-hidden > div {
@@ -572,6 +585,20 @@ html:not(.dark) #resume-cta a[download]:hover {
   background-color: #0369a1 !important;
 }
 
+html:not(.dark) #resume-cta a[href="#contact"] {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border: 1px solid #cbd5e1 !important;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08) !important;
+  font-weight: 700 !important;
+}
+
+html:not(.dark) #resume-cta a[href="#contact"]:hover {
+  background-color: #f0f9ff !important;
+  color: #0284c7 !important;
+  border-color: #0284c7 !important;
+}
+
 /* Contact Section Form & Info Cards */
 html:not(.dark) #contact .glass-card {
   background: linear-gradient(145deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 253, 250, 0.7) 50%, rgba(238, 242, 255, 0.7) 100%) !important;
@@ -607,12 +634,12 @@ html:not(.dark) footer a:hover {
 html:not(.dark) .mesh-gradient {
   background-color: #f8fafc !important;
   background-image: 
-    radial-gradient(at 8% 10%, rgba(6, 182, 212, 0.12) 0px, transparent 40%),
-    radial-gradient(at 92% 14%, rgba(245, 158, 11, 0.09) 0px, transparent 35%),
-    radial-gradient(at 50% 32%, rgba(99, 102, 241, 0.07) 0px, transparent 45%),
-    radial-gradient(at 12% 58%, rgba(16, 185, 129, 0.08) 0px, transparent 40%),
-    radial-gradient(at 88% 75%, rgba(139, 92, 246, 0.07) 0px, transparent 45%),
-    radial-gradient(at 50% 92%, rgba(6, 182, 212, 0.10) 0px, transparent 50%) !important;
+    radial-gradient(at 8% 10%, rgba(6, 182, 212, 0.08) 0px, transparent 40%),
+    radial-gradient(at 92% 14%, rgba(245, 158, 11, 0.03) 0px, transparent 35%),
+    radial-gradient(at 50% 32%, rgba(99, 102, 241, 0.05) 0px, transparent 45%),
+    radial-gradient(at 12% 58%, rgba(16, 185, 129, 0.05) 0px, transparent 40%),
+    radial-gradient(at 88% 75%, rgba(139, 92, 246, 0.05) 0px, transparent 45%),
+    radial-gradient(at 50% 92%, rgba(6, 182, 212, 0.06) 0px, transparent 50%) !important;
 }
 
 html:not(.dark) #mobile-nav {
@@ -632,3 +659,398 @@ html:not(.dark) textarea:focus {
   border-color: #0284c7 !important;
   box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15) !important;
 }
+
+/* =========================================================
+   Scroll Reveal & Dynamic Motion System
+   ========================================================= */
+
+@keyframes fadeInUpSmooth {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulseBeacon {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(6, 182, 212, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(6, 182, 212, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(6, 182, 212, 0);
+  }
+}
+
+@keyframes pulseRadarGreen {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  }
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+  }
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+  }
+}
+
+@keyframes dataPacketFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+@keyframes subtleFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes borderGlowPulse {
+  0%, 100% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+/* Scroll-triggered reveal containers */
+.reveal-section {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-section.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Staggered child items */
+.reveal-section .stagger-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-section.is-revealed .stagger-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-section.is-revealed .stagger-1 { transition-delay: 80ms; }
+.reveal-section.is-revealed .stagger-2 { transition-delay: 160ms; }
+.reveal-section.is-revealed .stagger-3 { transition-delay: 240ms; }
+.reveal-section.is-revealed .stagger-4 { transition-delay: 320ms; }
+.reveal-section.is-revealed .stagger-5 { transition-delay: 400ms; }
+.reveal-section.is-revealed .stagger-6 { transition-delay: 480ms; }
+
+/* Interactive glowing card enhancements */
+.interactive-card {
+  position: relative;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease, box-shadow 0.35s ease;
+}
+
+.interactive-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(6, 182, 212, 0.45) !important;
+  box-shadow: 0 16px 36px -10px rgba(6, 182, 212, 0.22), 0 0 20px -2px rgba(6, 182, 212, 0.12) !important;
+}
+
+.interactive-card-emerald:hover {
+  transform: translateY(-6px);
+  border-color: rgba(16, 185, 129, 0.5) !important;
+  box-shadow: 0 16px 36px -10px rgba(16, 185, 129, 0.22), 0 0 20px -2px rgba(16, 185, 129, 0.12) !important;
+}
+
+.interactive-card-violet:hover {
+  transform: translateY(-6px);
+  border-color: rgba(139, 92, 246, 0.5) !important;
+  box-shadow: 0 16px 36px -10px rgba(139, 92, 246, 0.22), 0 0 20px -2px rgba(139, 92, 246, 0.12) !important;
+}
+
+.interactive-card-amber:hover {
+  transform: translateY(-6px);
+  border-color: rgba(245, 158, 11, 0.5) !important;
+  box-shadow: 0 16px 36px -10px rgba(245, 158, 11, 0.22), 0 0 20px -2px rgba(245, 158, 11, 0.12) !important;
+}
+
+/* Gradient Beam on top of cards */
+.gradient-beam-top {
+  position: relative;
+  overflow: hidden;
+}
+
+.gradient-beam-top::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(6, 182, 212, 0.8), rgba(139, 92, 246, 0.8), transparent);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.gradient-beam-top:hover::before {
+  opacity: 1;
+}
+
+/* Radar Beacon & Status Dots */
+.radar-beacon-cyan {
+  animation: pulseBeacon 2.4s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+.radar-beacon-green {
+  animation: pulseRadarGreen 2.4s infinite cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+/* Dynamic Animated Architecture Flow Stream */
+.architecture-flow-stream {
+  background: linear-gradient(90deg, rgba(6, 182, 212, 0.15) 0%, rgba(6, 182, 212, 0.8) 50%, rgba(6, 182, 212, 0.15) 100%);
+  background-size: 200% 100%;
+  animation: dataPacketFlow 2.8s linear infinite;
+}
+
+/* Animated Timeline Stem */
+.timeline-stem-gradient {
+  background: linear-gradient(180deg, #06b6d4 0%, #8b5cf6 45%, #10b981 100%);
+  box-shadow: 0 0 12px rgba(6, 182, 212, 0.35);
+}
+
+/* Interactive Badge Tag Hover */
+.tech-tag-interactive {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tech-tag-interactive:hover {
+  transform: translateY(-2px) scale(1.04);
+  border-color: rgba(6, 182, 212, 0.6) !important;
+  color: #38bdf8 !important;
+  box-shadow: 0 4px 12px -2px rgba(6, 182, 212, 0.25);
+}
+
+/* Light mode specific fine-tuning for new dynamics */
+html:not(.dark) .timeline-stem-gradient {
+  background: linear-gradient(180deg, #0284c7 0%, #7c3aed 45%, #059669 100%);
+  box-shadow: 0 0 10px rgba(2, 132, 199, 0.25);
+}
+
+html:not(.dark) .tech-tag-interactive:hover {
+  background-color: #f0fdfa !important;
+  border-color: #0284c7 !important;
+  color: #0369a1 !important;
+  box-shadow: 0 4px 12px -2px rgba(2, 132, 199, 0.18);
+}
+
+html:not(.dark) .architecture-flow-stream {
+  background: linear-gradient(90deg, rgba(2, 132, 199, 0.12) 0%, rgba(2, 132, 199, 0.7) 50%, rgba(2, 132, 199, 0.12) 100%);
+  background-size: 200% 100%;
+  animation: dataPacketFlow 2.8s linear infinite;
+}
+
+/* =========================================================
+   Light Mode High-Contrast Typography & Text Visibility
+   ========================================================= */
+
+/* 1. Stats Numbers & Labels */
+html:not(.dark) #stats .stat-number,
+html:not(.dark) .stat-number {
+  color: #0284c7 !important;
+  background: none !important;
+  -webkit-text-fill-color: #0284c7 !important;
+  text-shadow: none !important;
+  font-weight: 800 !important;
+}
+
+html:not(.dark) #stats .stat-label,
+html:not(.dark) .stat-label {
+  color: #0f172a !important;
+  font-weight: 700 !important;
+}
+
+html:not(.dark) #stats .stat-desc,
+html:not(.dark) .stat-desc {
+  color: #475569 !important;
+  font-weight: 500 !important;
+}
+
+/* 2. Hero Social Icon Circles (Above Hire Me) */
+html:not(.dark) #home a.rounded-full,
+html:not(.dark) #home a[aria-label] {
+  background-color: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08) !important;
+}
+
+html:not(.dark) #home a.rounded-full svg,
+html:not(.dark) #home a[aria-label] svg {
+  color: #0f172a !important;
+}
+
+html:not(.dark) #home a.rounded-full:hover,
+html:not(.dark) #home a[aria-label]:hover {
+  background-color: #f0f9ff !important;
+  border-color: #0284c7 !important;
+  color: #0284c7 !important;
+}
+
+html:not(.dark) #home a.rounded-full:hover svg,
+html:not(.dark) #home a[aria-label]:hover svg {
+  color: #0284c7 !important;
+}
+
+/* 3. Section Category Pills (Career History, Highlighted Systems, etc.) */
+html:not(.dark) .rounded-full.bg-cyan-950\/40,
+html:not(.dark) .rounded-full.bg-cyan-950\/50,
+html:not(.dark) .rounded-full.bg-cyan-950\/60,
+html:not(.dark) div[class*="bg-cyan-950"],
+html:not(.dark) span[class*="bg-cyan-950"] {
+  background-color: #e0f2fe !important;
+  border: 1px solid #38bdf8 !important;
+  color: #0369a1 !important;
+  font-weight: 700 !important;
+}
+
+html:not(.dark) .rounded-full.bg-violet-950\/40,
+html:not(.dark) .rounded-full.bg-violet-950\/50,
+html:not(.dark) div[class*="bg-violet-950"],
+html:not(.dark) span[class*="bg-violet-950"] {
+  background-color: #f3e8ff !important;
+  border: 1px solid #c084fc !important;
+  color: #6b21a8 !important;
+  font-weight: 700 !important;
+}
+
+html:not(.dark) .rounded-full.bg-emerald-950\/40,
+html:not(.dark) .rounded-full.bg-emerald-950\/50,
+html:not(.dark) div[class*="bg-emerald-950"],
+html:not(.dark) span[class*="bg-emerald-950"] {
+  background-color: #dcfce7 !important;
+  border: 1px solid #4ade80 !important;
+  color: #166534 !important;
+  font-weight: 700 !important;
+}
+
+/* Specific saturated colors for light backgrounds */
+html:not(.dark) .text-violet-200,
+html:not(.dark) .text-violet-300 {
+  color: #6b21a8 !important;
+}
+
+html:not(.dark) .text-cyan-200,
+html:not(.dark) .text-cyan-300 {
+  color: #0369a1 !important;
+}
+
+html:not(.dark) .text-emerald-200,
+html:not(.dark) .text-emerald-300 {
+  color: #15803d !important;
+}
+
+html:not(.dark) .text-amber-200,
+html:not(.dark) .text-amber-300 {
+  color: #b45309 !important;
+}
+
+/* 4. High-Contrast Text Rules Across All Sections */
+html:not(.dark) p {
+  color: #334155 !important;
+}
+
+html:not(.dark) h1, 
+html:not(.dark) h2, 
+html:not(.dark) h3,
+html:not(.dark) h4 {
+  color: #0f172a !important;
+}
+
+html:not(.dark) .text-slate-400 {
+  color: #475569 !important;
+}
+
+html:not(.dark) .text-slate-500 {
+  color: #64748b !important;
+}
+
+html:not(.dark) .text-slate-300 {
+  color: #1e293b !important;
+}
+
+html:not(.dark) .text-slate-200 {
+  color: #0f172a !important;
+}
+
+html:not(.dark) .text-white {
+  color: #0f172a !important;
+}
+
+html:not(.dark) strong {
+  color: #0f172a !important;
+}
+
+/* 5. Tech Tag Pills */
+html:not(.dark) .tech-tag-interactive {
+  background-color: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+html:not(.dark) .tech-tag-interactive:hover {
+  background-color: #f0f9ff !important;
+  border-color: #0284c7 !important;
+  color: #0284c7 !important;
+}
+
+/* 6. Production Metric Pills (e.g. ~14,000 cases/mo) */
+html:not(.dark) div[class*="bg-slate-900/90"] {
+  background-color: #f8fafc !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+html:not(.dark) div[class*="bg-slate-900/90"] span {
+  color: #0f172a !important;
+}
+
+/* 7. Timeline Badges & Experience Cards */
+html:not(.dark) #experience .glass-card {
+  background: #ffffff !important;
+  border: 1px solid #e2e8f0 !important;
+  box-shadow: 0 4px 20px rgba(15, 23, 42, 0.05) !important;
+}
+
+html:not(.dark) #experience .glass-card:hover {
+  border-color: #0284c7 !important;
+  box-shadow: 0 12px 30px rgba(2, 132, 199, 0.15) !important;
+}
+
+html:not(.dark) #experience span.bg-slate-800\/90,
+html:not(.dark) #experience span.bg-slate-800\/80 {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+
+

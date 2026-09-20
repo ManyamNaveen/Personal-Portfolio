@@ -2,93 +2,122 @@
 
 import React from 'react';
 import { PORTFOLIO_DATA } from '@/data/portfolioData';
+import { useScrollReveal } from '@/components/useScrollReveal';
+import TypewriterText from '@/components/TypewriterText';
 
 export default function About() {
+  const sectionRef = useScrollReveal();
+
   return (
-    <section className="max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-16 sm:py-24 border-t border-white/5" id="about">
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+    <section 
+      ref={sectionRef}
+      className="reveal-section max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-5 sm:py-7 border-t border-slate-200 dark:border-white/5" 
+      id="about"
+    >
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
         
         {/* Left: Narrative */}
-        <div className="lg:col-span-6 space-y-6">
-          <div className="inline-flex items-center gap-2 text-cyan-400 font-mono text-xs uppercase tracking-wider">
-            <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
+        <div className="lg:col-span-6 space-y-4 sm:space-y-5 stagger-item stagger-1">
+          <div className="inline-flex items-center gap-2 text-cyan-800 dark:text-cyan-400 font-mono text-xs uppercase tracking-wider px-3 py-1 rounded-full bg-cyan-100 dark:bg-cyan-950/40 border border-cyan-300 dark:border-cyan-500/30 font-bold">
+            <span className="w-2 h-2 rounded-full bg-cyan-600 dark:bg-cyan-400 radar-beacon-cyan"></span>
             Professional Summary
           </div>
 
-          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-white">
-            Engineering with a <span className="gradient-text">production mindset</span>.
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 dark:text-white leading-tight flex items-center gap-2.5">
+            <span>⚡</span>
+            <TypewriterText 
+              text="Engineering with a production mindset." 
+              gradientWord="production mindset." 
+            />
           </h2>
 
-          <div className="space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed font-normal">
+          <div className="space-y-3.5 text-slate-700 dark:text-slate-300 text-sm sm:text-base leading-relaxed font-normal">
             <p>
-              Java Backend Developer with <strong className="text-white font-semibold">3.8+ years of experience</strong> building and maintaining high-throughput, enterprise-ready REST APIs with Java and Spring Boot.
+              Java Backend Developer with <strong className="text-slate-900 dark:text-white font-semibold underline decoration-cyan-500/50 decoration-2 underline-offset-4">3.8+ years of production experience</strong> building resilient, high-throughput REST APIs and distributed microservices with Java and Spring Boot.
             </p>
             <p>
-              Recently delivered payments, collections, and AI-integrated lending platforms end-to-end: from initial PostgreSQL schema design to complex third-party partner integrations including <span className="text-cyan-300 font-mono">PhonePe</span>, <span className="text-cyan-300 font-mono">MSG91</span>, <span className="text-cyan-300 font-mono">India Post</span>, and premier US credit bureaus (CLARITY, MLA, FACTOR TRUST, EQUIFAX).
+              Delivered mission-critical fintech payments, collections, and AI-integrated lending platforms end-to-end: from initial PostgreSQL relational schemas to complex partner ecosystems including <span className="text-cyan-900 dark:text-cyan-300 font-mono bg-cyan-100 dark:bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-300 dark:border-cyan-500/30 inline-flex items-center gap-1 font-medium">📱 PhonePe</span>, <span className="text-cyan-900 dark:text-cyan-300 font-mono bg-cyan-100 dark:bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-300 dark:border-cyan-500/30 inline-flex items-center gap-1 font-medium">✉️ MSG91</span>, <span className="text-cyan-900 dark:text-cyan-300 font-mono bg-cyan-100 dark:bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-300 dark:border-cyan-500/30 inline-flex items-center gap-1 font-medium">📮 India Post</span>, and premier US credit bureaus (<span className="text-slate-900 dark:text-white font-semibold">CLARITY, MLA, FACTOR TRUST, EQUIFAX</span>).
             </p>
             <p>
-              Deeply skilled in Spring Security (JWT, RBAC), Redis caching strategies, AWS S3 asset pipelines, Docker, and API contract design. Experienced collaborator alongside frontend, QA, and computer vision AI teams in fast-paced production environments.
+              Deeply skilled in Spring Security (JWT, RBAC), low-latency Redis caching, AWS S3 pipelines, Docker containerization, and clean API contract design. Experienced collaborator alongside frontend, QA, and computer vision AI teams in high-velocity production environments.
             </p>
           </div>
 
-          <div className="pt-2 flex items-center gap-6">
-            <div>
-              <span className="text-xs text-slate-400 font-mono block">PRIMARY FOCUS</span>
-              <span className="text-sm font-semibold text-white">Fintech, Payments &amp; AI Middleware</span>
+          <div className="pt-1 flex flex-wrap items-center gap-3">
+            <div className="glass-card px-4 py-2.5 rounded-xl border border-slate-300 dark:border-white/10 flex items-center gap-3 shadow-sm">
+              <span className="text-xl">🎯</span>
+              <div>
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono block uppercase tracking-wider font-semibold">PRIMARY FOCUS</span>
+                <span className="text-sm font-bold text-slate-900 dark:text-white">Fintech, Payments &amp; AI Middleware</span>
+              </div>
             </div>
-            <div className="w-px h-8 bg-slate-800"></div>
-            <div>
-              <span className="text-xs text-slate-400 font-mono block">CURRENT STATUS</span>
-              <span className="text-sm font-semibold text-emerald-400 flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-                Open for High-Impact Roles
-              </span>
+            <div className="glass-card px-4 py-2.5 rounded-xl border border-emerald-300 dark:border-emerald-500/30 flex items-center gap-3 shadow-sm">
+              <span className="text-xl">🟢</span>
+              <div>
+                <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono block uppercase tracking-wider font-semibold">CURRENT STATUS</span>
+                <span className="text-sm font-bold text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500 dark:bg-emerald-400 radar-beacon-green"></span>
+                  Open for High-Impact Roles
+                </span>
+              </div>
             </div>
           </div>
         </div>
 
-        {/* Right: "What I Build" Capabilities Grid */}
+        {/* Right: "What I Build" Capabilities Grid with Rich Icons & Symbols */}
         <div className="lg:col-span-6">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 sm:gap-4">
             
-            <div className="glass-card p-5 rounded-xl">
-              <div className="w-9 h-9 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center mb-3">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
-                </svg>
+            {/* Card 1: Backend REST APIs */}
+            <div className="glass-card interactive-card gradient-beam-top p-4 sm:p-5 rounded-2xl group stagger-item stagger-2 border border-slate-300 dark:border-white/10 shadow-sm">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border border-cyan-500/30 text-cyan-600 dark:text-cyan-300 flex items-center justify-center mb-2.5 group-hover:scale-110 group-hover:rotate-6 transition-all shadow-[0_0_15px_rgba(6,182,212,0.2)] text-xl">
+                ⚡
               </div>
-              <h3 className="text-white font-semibold text-base mb-1">Backend REST APIs</h3>
-              <p className="text-xs text-slate-400">Clean layered architecture, standard HTTP status handling, Swagger/OpenAPI documentation, and SOLID design.</p>
+              <h3 className="text-slate-900 dark:text-white font-bold text-base mb-1 group-hover:text-cyan-600 dark:group-hover:text-cyan-300 transition-colors flex items-center gap-2">
+                <span>Backend REST APIs</span>
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+                Clean layered architecture, standard HTTP status handling, Swagger/OpenAPI documentation, and SOLID design patterns.
+              </p>
             </div>
 
-            <div className="glass-card p-5 rounded-xl">
-              <div className="w-9 h-9 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center mb-3">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
-                </svg>
+            {/* Card 2: Payment Gateways */}
+            <div className="glass-card interactive-card interactive-card-emerald gradient-beam-top p-4 sm:p-5 rounded-2xl group stagger-item stagger-3 border border-slate-300 dark:border-white/10 shadow-sm">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-600/20 border border-emerald-500/30 text-emerald-600 dark:text-emerald-300 flex items-center justify-center mb-2.5 group-hover:scale-110 group-hover:rotate-6 transition-all shadow-[0_0_15px_rgba(16,185,129,0.2)] text-xl">
+                💳
               </div>
-              <h3 className="text-white font-semibold text-base mb-1">Payment Gateways</h3>
-              <p className="text-xs text-slate-400">PhonePe dynamic QR, collect calls, webhooks, refund idempotency, automatic order expiration routines.</p>
+              <h3 className="text-slate-900 dark:text-white font-bold text-base mb-1 group-hover:text-emerald-600 dark:group-hover:text-emerald-300 transition-colors flex items-center gap-2">
+                <span>Payment Gateways</span>
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+                PhonePe dynamic QR, collect calls, webhooks, refund idempotency, and automatic order cancellation routines.
+              </p>
             </div>
 
-            <div className="glass-card p-5 rounded-xl">
-              <div className="w-9 h-9 rounded-lg bg-violet-500/10 text-violet-400 flex items-center justify-center mb-3">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
-                </svg>
+            {/* Card 3: Batch & Rule Engines */}
+            <div className="glass-card interactive-card interactive-card-violet gradient-beam-top p-4 sm:p-5 rounded-2xl group stagger-item stagger-4 border border-slate-300 dark:border-white/10 shadow-sm">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500/20 to-purple-600/20 border border-violet-500/30 text-violet-600 dark:text-violet-300 flex items-center justify-center mb-2.5 group-hover:scale-110 group-hover:rotate-6 transition-all shadow-[0_0_15px_rgba(139,92,246,0.2)] text-xl">
+                ⏱️
               </div>
-              <h3 className="text-white font-semibold text-base mb-1">Batch &amp; Rule Engines</h3>
-              <p className="text-xs text-slate-400">Scheduled chunked batch ingestion (1,000s/chunk), DPD rule engines, automated postal and communication triggers.</p>
+              <h3 className="text-slate-900 dark:text-white font-bold text-base mb-1 group-hover:text-violet-600 dark:group-hover:text-violet-300 transition-colors flex items-center gap-2">
+                <span>Batch &amp; Rule Engines</span>
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+                Scheduled chunked batch ingestion (1,000s/chunk), DPD rule engines, automated postal and omnichannel triggers.
+              </p>
             </div>
 
-            <div className="glass-card p-5 rounded-xl">
-              <div className="w-9 h-9 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center mb-3">
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
-                </svg>
+            {/* Card 4: AI Middleware Orchestration */}
+            <div className="glass-card interactive-card interactive-card-amber gradient-beam-top p-4 sm:p-5 rounded-2xl group stagger-item stagger-5 border border-slate-300 dark:border-white/10 shadow-sm">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500/20 to-orange-600/20 border border-amber-500/30 text-amber-600 dark:text-amber-300 flex items-center justify-center mb-2.5 group-hover:scale-110 group-hover:rotate-6 transition-all shadow-[0_0_15px_rgba(245,158,11,0.2)] text-xl">
+                🤖
               </div>
-              <h3 className="text-white font-semibold text-base mb-1">AI Middleware Orchestration</h3>
-              <p className="text-xs text-slate-400">Multi-tenant pipelines chaining 5 vision models, S3 dataset validation, and dynamic appraisal algorithms.</p>
+              <h3 className="text-slate-900 dark:text-white font-bold text-base mb-1 group-hover:text-amber-600 dark:group-hover:text-amber-300 transition-colors flex items-center gap-2">
+                <span>AI Middleware Orchestration</span>
+              </h3>
+              <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed font-normal">
+                Multi-tenant pipelines chaining 5 vision models, S3 dataset validation, and dynamic appraisal algorithms.
+              </p>
             </div>
 
           </div>
