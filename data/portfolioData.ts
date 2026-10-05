@@ -187,7 +187,7 @@ export const PORTFOLIO_DATA: {
         { label: "Fraud checks", value: "Built in" }
       ],
       hasCaseStudy: true,
-      videoUrl: "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260806_133255_956f653f-5d80-4b06-abd5-0f46c98b60fa.mp4"
+      videoUrl: "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260324_024928_1efd0b0d-6c02-45a8-8847-1030900c4f63.mp4"
     },
     {
       id: "lendly",
