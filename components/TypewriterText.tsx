@@ -25,37 +25,35 @@ export default function TypewriterText({
 
   useEffect(() => {
     const el = containerRef.current;
-    if (!el || hasTriggered) return;
+    if (!el) return;
 
     if (typeof IntersectionObserver === 'undefined') {
+      setHasTriggered(true);
       setDisplayedLength(text.length);
       setShowCursor(false);
       return;
     }
 
+    let startTimeout: ReturnType<typeof setTimeout> | undefined;
     const observer = new IntersectionObserver(
       (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && !hasTriggered) {
-            setHasTriggered(true);
-            observer.disconnect();
-
-            // Start typing once after landing on section
-            const startTimeout = setTimeout(() => {
-              setIsTyping(true);
-            }, delay);
-
-            return () => clearTimeout(startTimeout);
-          }
-        });
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setHasTriggered(true);
+          observer.disconnect();
+          // Start typing once after landing on section
+          startTimeout = setTimeout(() => setIsTyping(true), delay);
+        }
       },
       { threshold: 0.15, rootMargin: '0px 0px -30px 0px' }
     );
 
     observer.observe(el);
 
-    return () => observer.disconnect();
-  }, [hasTriggered, delay, text.length]);
+    return () => {
+      observer.disconnect();
+      if (startTimeout) clearTimeout(startTimeout);
+    };
+  }, [delay, text.length]);
 
   useEffect(() => {
     if (!isTyping) return;
@@ -80,7 +78,7 @@ export default function TypewriterText({
 
   if (!gradientWord) {
     return (
-      <span ref={containerRef} className={`inline-flex items-baseline ${className}`}>
+      <span ref={containerRef} className={className}>
         <span>{currentText || (hasTriggered ? '' : '')}</span>
         {showCursor && hasTriggered && (
           <span aria-hidden="true" className="type-cursor" />
@@ -92,7 +90,7 @@ export default function TypewriterText({
   const gradIndex = text.indexOf(gradientWord);
   if (gradIndex === -1) {
     return (
-      <span ref={containerRef} className={`inline-flex items-baseline ${className}`}>
+      <span ref={containerRef} className={className}>
         <span>{currentText}</span>
         {showCursor && hasTriggered && (
           <span aria-hidden="true" className="type-cursor" />
@@ -112,7 +110,7 @@ export default function TypewriterText({
       : '';
 
   return (
-    <span ref={containerRef} className={`inline-flex items-baseline flex-wrap ${className}`}>
+    <span ref={containerRef} className={className}>
       {normalPart && <span>{normalPart}</span>}
       {gradientPart && <span className="gradient-text">{gradientPart}</span>}
       {afterPart && <span>{afterPart}</span>}

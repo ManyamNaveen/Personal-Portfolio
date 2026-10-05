@@ -1,182 +1,115 @@
 'use client';
 
-import React, { useState } from 'react';
-import { PORTFOLIO_DATA } from '@/data/portfolioData';
-import { useScrollReveal } from '@/components/useScrollReveal';
-import TypewriterText from '@/components/TypewriterText';
+import React, { useEffect, useState } from 'react';
+import { BadgeCheck, GraduationCap, Maximize2, X } from 'lucide-react';
+import { PORTFOLIO_DATA, type CertificationItem } from '@/data/portfolioData';
+import SectionHeading from '@/components/SectionHeading';
+import { RevealGroup, RevealItem } from '@/components/Reveal';
 
 export default function Education() {
-  const sectionRef = useScrollReveal();
-  const [selectedCert, setSelectedCert] = useState<{ name: string; image: string; pdfUrl?: string } | null>(null);
+  const [selectedCert, setSelectedCert] = useState<CertificationItem | null>(null);
+
+  useEffect(() => {
+    if (!selectedCert) return;
+    const onKey = (e: KeyboardEvent) => e.key === 'Escape' && setSelectedCert(null);
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [selectedCert]);
 
   return (
-    <section
-      ref={sectionRef}
-      className="reveal-section max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-5 sm:py-7 border-t border-slate-200 dark:border-white/5"
-      id="education"
-    >
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10">
+    <section className="border-t border-slate-200" id="education">
+      <div className="page-container py-16 sm:py-24 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+        {/* Education */}
+        <div className="lg:col-span-5">
+          <SectionHeading eyebrow="Studies" title="Education" />
 
-        {/* Left: Formal Education */}
-        <div className="lg:col-span-5 space-y-4 sm:space-y-5 stagger-item stagger-1">
-          <div className="inline-flex items-center gap-2 text-cyan-800 dark:text-cyan-400 font-mono text-xs uppercase tracking-wider px-3 py-1 rounded-full bg-cyan-100 dark:bg-cyan-950/40 border border-cyan-300 dark:border-cyan-500/30 font-bold">
-            <span className="w-2 h-2 rounded-full bg-cyan-600 dark:bg-cyan-400 radar-beacon-cyan"></span>
-            Academic Foundation
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-3">
-            <span>🎓</span>
-            <TypewriterText text="Education" />
-          </h2>
-          <p className="text-slate-600 dark:text-slate-400 text-sm">
-            Rigorous engineering foundation bridging systems logic, algorithmic thinking, and core software design.
-          </p>
-
-          <div className="space-y-3.5 pt-1">
-            {PORTFOLIO_DATA.education.map((item, idx) => (
-              <div
-                key={idx}
-                className="glass-card interactive-card gradient-beam-top p-5 sm:p-6 rounded-2xl border border-slate-300 dark:border-white/10 relative overflow-hidden shadow-sm"
-              >
-                <div className="flex items-start justify-between gap-4">
-                  <div className="flex items-start gap-3.5">
-                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border border-cyan-500/30 text-cyan-600 dark:text-cyan-300 flex items-center justify-center font-bold text-base shrink-0 shadow-[0_0_15px_rgba(6,182,212,0.15)]">
-                      {idx === 0 ? '🎓' : '📜'}
-                    </div>
-                    <div>
-                      <h3 className="text-base font-bold text-slate-900 dark:text-white">{item.degree}</h3>
-                      <div className="text-sm text-cyan-700 dark:text-cyan-400 font-semibold mt-0.5 flex items-center gap-1.5">
-                        <span>🏛️</span>
-                        <span>{item.institution}</span>
-                      </div>
-                      <div className="text-xs font-mono text-slate-600 dark:text-slate-400 mt-2 flex items-center gap-3 font-medium">
-                        <span>🗓️ {item.period}</span>
-                        <span>📍 {item.location}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <span className="px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-500/10 border border-emerald-300 dark:border-emerald-500/30 text-emerald-800 dark:text-emerald-300 font-mono text-xs font-bold shrink-0 shadow-sm flex items-center gap-1">
-                    <span>★</span>
-                    <span>{item.score}</span>
+          <RevealGroup className="mt-10 space-y-4">
+            {PORTFOLIO_DATA.education.map((item) => (
+              <RevealItem key={item.degree}>
+                <div className="flex gap-4 rounded-3xl border border-slate-200 bg-white p-6">
+                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-700">
+                    <GraduationCap className="h-5 w-5" strokeWidth={1.8} />
                   </span>
+                  <div className="min-w-0">
+                    <h3 className="font-display text-base font-bold text-slate-900">{item.degree}</h3>
+                    <p className="mt-1 text-sm text-slate-600">{item.institution}</p>
+                    <p className="mt-2 text-xs text-slate-500">
+                      {item.period} · {item.location}
+                    </p>
+                    <span className="mt-3 inline-block rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-800">
+                      {item.score}
+                    </span>
+                  </div>
                 </div>
-              </div>
+              </RevealItem>
             ))}
-          </div>
+          </RevealGroup>
         </div>
 
-        {/* Right: Professional Certifications with Real Certificate Previews */}
-        <div className="lg:col-span-7 space-y-4 sm:space-y-5 stagger-item stagger-2">
-          <div className="inline-flex items-center gap-2 text-violet-800 dark:text-violet-400 font-mono text-xs uppercase tracking-wider px-3 py-1 rounded-full bg-violet-100 dark:bg-violet-950/40 border border-violet-300 dark:border-violet-500/30 font-bold">
-            <span className="w-2 h-2 rounded-full bg-violet-600 dark:bg-violet-400 radar-beacon-cyan"></span>
-            Industry Accreditations
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-3">
-            <span>🏆</span>
-            <TypewriterText text="Certifications & Credentials" />
-          </h2>
-          <p className="text-slate-600 dark:text-slate-400 text-sm">
-            Verified masteries in enterprise Java concurrency, high-performance multithreading, and AI-accelerated SQL.
-          </p>
+        {/* Certifications */}
+        <div className="lg:col-span-7">
+          <SectionHeading eyebrow="Courses" title="Certifications" />
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5 pt-1">
-            {PORTFOLIO_DATA.certifications.map((cert: any, idx: number) => (
-              <div
-                key={idx}
-                className={`glass-card interactive-card gradient-beam-top p-5 rounded-2xl border border-slate-300 dark:border-white/10 flex flex-col justify-between group shadow-sm ${
-                  !cert.image ? 'md:col-span-2' : ''
-                }`}
-              >
-                <div>
-                  {/* Certificate Image Preview */}
-                  {cert.image ? (
-                    <div
-                      className="relative rounded-xl overflow-hidden mb-4 border border-slate-200 dark:border-white/15 bg-slate-950/80 cursor-pointer aspect-[16/10] group/img shadow-md"
-                      onClick={() => setSelectedCert({ name: cert.name, image: cert.image })}
+          <RevealGroup className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-4">
+            {PORTFOLIO_DATA.certifications.map((cert) => (
+              <RevealItem key={cert.name} className={cert.image ? '' : 'md:col-span-2'}>
+                <div className="group h-full rounded-3xl border border-slate-200 bg-white p-5 transition-shadow hover:shadow-[0_20px_45px_-24px_rgba(15,23,42,0.3)]">
+                  {cert.image && (
+                    <button
+                      type="button"
+                      onClick={() => setSelectedCert(cert)}
+                      className="relative mb-5 block w-full aspect-[16/10] overflow-hidden rounded-2xl border border-slate-100 bg-slate-50"
+                      aria-label={`Expand ${cert.name} certificate`}
                     >
                       <img
                         src={cert.image}
                         alt={cert.name}
-                        className="w-full h-full object-cover group-hover/img:scale-105 transition-transform duration-300"
                         loading="lazy"
+                        className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/20 to-transparent opacity-0 group-hover/img:opacity-100 transition-opacity flex items-center justify-center p-3">
-                        <span className="text-xs font-mono text-cyan-300 bg-slate-900/90 px-3 py-1.5 rounded-xl border border-cyan-500/40 flex items-center gap-1.5 shadow-lg">
-                          <span>🔍</span> Click to Expand
-                        </span>
-                      </div>
-                    </div>
-                  ) : null}
-
-                  {/* Header & Badges */}
-                  <div className="flex items-center justify-between gap-2 mb-2">
-                    <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-cyan-100 dark:bg-cyan-500/10 border border-cyan-300 dark:border-cyan-500/30 text-cyan-800 dark:text-cyan-300 font-bold flex items-center gap-1">
-                      <span>✓</span> {cert.badge || 'Verified Credential'}
+                      <span className="absolute bottom-3 right-3 flex h-8 w-8 items-center justify-center rounded-full bg-white/90 text-slate-700 opacity-0 shadow transition-opacity group-hover:opacity-100">
+                        <Maximize2 className="h-4 w-4" />
+                      </span>
+                    </button>
+                  )}
+                  <div className="flex items-center justify-between gap-2 text-xs">
+                    <span className="inline-flex items-center gap-1 font-semibold text-cyan-700">
+                      <BadgeCheck className="h-4 w-4" strokeWidth={2} />
+                      {cert.badge}
                     </span>
-                    <span className="text-xs font-mono text-slate-600 dark:text-slate-400 flex items-center gap-1">
-                      <span>🏛️</span> {cert.issuer}
-                    </span>
+                    <span className="text-slate-500">{cert.issuer}</span>
                   </div>
-
-                  <h3 className="text-base font-bold text-slate-900 dark:text-white group-hover:text-cyan-600 dark:group-hover:text-cyan-300 transition-colors tracking-tight">
-                    {cert.name}
-                  </h3>
-
-                  <p className="text-xs text-slate-600 dark:text-slate-300 mt-2 font-mono leading-relaxed">
-                    <strong className="text-slate-800 dark:text-slate-400 font-medium">Skills:</strong> {cert.skills}
-                  </p>
+                  <h3 className="mt-2 font-display text-base font-bold text-slate-900">{cert.name}</h3>
+                  <p className="mt-1.5 text-sm leading-relaxed text-slate-600">{cert.skills}</p>
                 </div>
-
-                {/* Bottom Action Row */}
-                <div className="pt-4 mt-4 border-t border-slate-200 dark:border-white/10 flex items-center justify-between">
-                  <span className="text-[11px] font-mono text-emerald-700 dark:text-emerald-400 flex items-center gap-1.5 font-medium">
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 dark:bg-emerald-400 shadow-[0_0_6px_#10b981]"></span>
-                    Verified &amp; Authenticated
-                  </span>
-
-                  <span className="text-xs font-mono text-cyan-700 dark:text-cyan-400 font-semibold flex items-center gap-1">
-                    <span>🏛️</span> {cert.issuer}
-                  </span>
-                </div>
-              </div>
+              </RevealItem>
             ))}
-          </div>
+          </RevealGroup>
         </div>
-
       </div>
 
-      {/* High-Resolution Certificate Lightbox Modal */}
-      {selectedCert && (
+      {/* Certificate lightbox */}
+      {selectedCert?.image && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeIn"
+          role="dialog"
+          aria-modal="true"
+          aria-label={selectedCert.name}
+          className="fixed inset-0 z-[70] flex items-center justify-center bg-slate-950/80 p-4 backdrop-blur-sm"
           onClick={() => setSelectedCert(null)}
         >
-          <div
-            className="relative max-w-4xl w-full bg-slate-900 border border-cyan-500/40 rounded-3xl p-4 sm:p-6 shadow-[0_0_50px_rgba(6,182,212,0.3)] animate-scaleUp"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-4">
-              <div className="flex items-center gap-2">
-                <span className="text-lg">🏆</span>
-                <h3 className="text-lg font-bold text-white">{selectedCert.name}</h3>
-              </div>
+          <div className="relative w-full max-w-4xl rounded-3xl bg-white p-4 sm:p-6" onClick={(e) => e.stopPropagation()}>
+            <div className="mb-4 flex items-center justify-between gap-4">
+              <h3 className="font-display text-lg font-bold text-slate-900">{selectedCert.name}</h3>
               <button
-                onClick={() => setSelectedCert(null)}
-                className="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white flex items-center justify-center font-bold transition-colors"
                 type="button"
+                onClick={() => setSelectedCert(null)}
                 aria-label="Close certificate preview"
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200"
               >
-                ✕
+                <X className="h-4 w-4" />
               </button>
             </div>
-
-            <div className="rounded-xl overflow-hidden border border-white/10 bg-slate-950 flex items-center justify-center max-h-[75vh]">
-              <img
-                src={selectedCert.image}
-                alt={selectedCert.name}
-                className="w-full h-auto max-h-[75vh] object-contain rounded-lg"
-              />
-            </div>
+            <img src={selectedCert.image} alt={selectedCert.name} className="max-h-[75vh] w-full rounded-xl object-contain" />
           </div>
         </div>
       )}

@@ -2,15 +2,14 @@ export interface ProjectItem {
   id: string;
   modalId?: string;
   badge: string;
-  badgeColor: string;
   title: string;
   tagline: string;
   duration: string;
   role: string;
   techStack: string[];
   metrics: { label: string; value: string }[];
-  bulletPoints: string[];
   hasCaseStudy: boolean;
+  videoUrl?: string;
 }
 
 export interface ExperienceItem {
@@ -18,11 +17,12 @@ export interface ExperienceItem {
   role: string;
   period: string;
   location: string;
-  summary: string;
+  note?: string;
   projects?: {
     name: string;
     period: string;
     tech: string;
+    highlight?: string;
     points: string[];
   }[];
   achievements: string[];
@@ -38,6 +38,8 @@ export interface CertificationItem {
   name: string;
   issuer: string;
   skills: string;
+  badge: string;
+  image?: string;
 }
 
 export interface EducationItem {
@@ -49,71 +51,66 @@ export interface EducationItem {
   highlights: string[];
 }
 
-export const PORTFOLIO_DATA = {
+export const PORTFOLIO_DATA: {
+  personal: Record<'name' | 'title' | 'location' | 'phone' | 'email' | 'linkedin' | 'github' | 'resumeUrl', string>;
+  experiences: ExperienceItem[];
+  projects: ProjectItem[];
+  skills: SkillCategory[];
+  education: EducationItem[];
+  certifications: CertificationItem[];
+} = {
   personal: {
     name: "Manyam Naveen",
     title: "Java Backend Developer",
-    subtitle: "Specializing in Spring Boot 3, REST APIs, PostgreSQL & Scalable Cloud Microservices. Delivering resilient distributed backends, rule engines, and payment integrations.",
-    experienceYears: "3.8+",
     location: "Palwancha, India 507115",
     phone: "+91 9398365948",
     email: "naveenmanyam12@gmail.com",
     linkedin: "https://linkedin.com/in/naveenmanyam",
     github: "https://github.com/naveenmanyam",
     resumeUrl: "/resume/Manyam_Naveen_Resume_latest.pdf",
-    availability: "Available for opportunities",
   },
-  stats: [
-    { value: "3.8+", label: "Years Experience", desc: "Backend Production Systems" },
-    { value: "90%", label: "Manual Effort Cut", desc: "Automated Bureau Decisioning" },
-    { value: "40%", label: "Latency Reduced", desc: "SQL & JPA Index Optimization" },
-    { value: "0", label: "Post-Release Bugs", desc: "25+ Prod Hotfixes Delivered" },
-  ],
   experiences: [
     {
       company: "FinxBridge / ArcLend",
       role: "Java Backend Developer",
       period: "Aug 2025 – Present",
       location: "Remote / Hybrid, India",
-      summary: "Leading backend engineering for mission-critical fintech platforms covering digital payments, automated debt collections, and multi-tenant AI ornament valuation.",
+      note: "FinxBridge: Aug 2025 – Jul 2026 · ArcLend: Aug 2026 – Present",
       projects: [
         {
           name: "Collections Platform",
           period: "Dec 2025 – Present",
           tech: "Java 21, Spring Boot 3, PostgreSQL, Redis, AWS S3, Swagger, MSG91, India Post",
+          highlight: "Handles about 14,000 loan cases every month",
           points: [
-            "Sole backend developer: architected database schema and all REST APIs end to end for a loan-collections platform handling overdue case lifecycle, telecalling, PTP, and OTS.",
-            "Engineered rule-based strategy engine on Spring Scheduler evaluating DPD, geography, overdue amount, and active triggers.",
-            "Implemented asynchronous batch processing ingesting bulk CSVs in chunks of 1,000 records, syncing with LOS.",
-            "Integrated MSG91 omnichannel communication (WhatsApp, SMS, IVR, OTP) and India Post API for automatic legal notice tracking.",
-            "Processes ~14,000 cases monthly with high reliability and zero downtime."
+            "Built the backend end to end: the database and every API.",
+            "Rules engine that decides when to follow up on each overdue loan.",
+            "Reminders by WhatsApp, SMS and calls, plus India Post legal notices."
           ]
         },
         {
           name: "Payments Bridge",
           period: "Aug 2025 – Dec 2025",
           tech: "Java 21, Spring Boot 3, PostgreSQL, React, JWT, PhonePe APIs",
+          highlight: "Live and powering repayments in the Collections platform",
           points: [
-            "Architected fintech payments middleware between enterprise merchants and PhonePe end to end: schema, secure APIs, and merchant dashboard.",
-            "Integrated PhonePe offline flows (Dynamic QR, Payment Link, Collect Call) and online flows (Payment Gateway, Paylinks, Autopay).",
-            "Built robust webhook processing, automated payment status verification, refunds, and auto-cancellation for expired sessions.",
-            "Implemented multi-merchant isolation with JWT-based role-based access control (RBAC)."
+            "Customers pay by PhonePe QR code, payment link or autopay.",
+            "Payments, refunds and expired requests are handled automatically."
           ]
         },
         {
           name: "Gold AI Valuation Platform",
           period: "Jul 2026 – Present",
           tech: "Java 21, Spring Boot 3, PostgreSQL, AWS S3, JWT, Multi-tenant Architecture",
+          highlight: "Coordinates 5 AI models in one flow",
           points: [
-            "Designed backend schema and API gateway orchestrating 5 dedicated AI valuation models (clarity check, ornament detection, fraud check, weight detection, stone segmentation).",
-            "Engineered asynchronous S3 image ingestion pipeline and loan amount valuation computation engine based on AI model confidence scores.",
-            "Maintained fraud reference dataset in AWS S3 for cross-verification and implemented strict per-tenant RBAC configuration."
+            "Runs jewellery photos through 5 AI checks, from quality to fraud.",
+            "Turns the results into a loan amount automatically."
           ]
         }
       ],
       achievements: [
-        "Delivered 3 end-to-end fintech products currently active in production.",
-        "Built robust strategy scheduler driving 14,000 automated loan collection workflows monthly."
+        "3 fintech products live today."
       ]
     },
     {
@@ -121,26 +118,22 @@ export const PORTFOLIO_DATA = {
       role: "Java Developer",
       period: "Jun 2022 – Mar 2025",
       location: "Hyderabad, India",
-      summary: "Engineered scalable backend RESTful micro-modules for 'Lendly', a flagship loan management platform covering underwriting, decision engines, and verification lifecycles.",
       projects: [
         {
-          name: "Lendly Loan Decision Engine & Bureau Integrations",
+          name: "Lendly Loan Management App",
           period: "Jun 2022 – Mar 2025",
           tech: "Java 8, Spring Boot, Spring Security, Spring Data JPA, Oracle, SQL Server, Postman",
+          highlight: "Employee of the Month within 3 months",
           points: [
-            "Built backend RESTful services for full loan lifecycles: underwriting, validation, applicant user management, and loan scheduling.",
-            "Integrated third-party underwriting services (CLARITY, MLA, FACTOR TRUST, EQUIFAX) over REST with dynamic YAML configuration.",
-            "Constructed decision-engine inquiry rules (SSN validation, DOB, bankruptcy triggers), slashing manual loan verification effort by 90%.",
-            "Optimized complex SQL queries and relational indexing in Oracle/SQL Server, cutting query response times by over 40%.",
-            "Implemented Spring Security (JWT, RBAC), centralized exception handling (@ControllerAdvice), and consistent API error envelope contracts.",
-            "Awarded Employee of the Month within 3 months of joining for rapid ownership and zero-defect delivery."
+            "APIs for the full loan journey, from application to repayment.",
+            "Automated US credit bureau checks: 90% less manual work.",
+            "Made slow database queries over 40% faster."
           ]
         }
       ],
       achievements: [
-        "Awarded 'Employee of the Month' within 3 months of joining.",
-        "Resolved 25+ production issues with zero post-release regressions.",
-        "Mentored junior engineers on SOLID principles, clean code, and RESTful API standards."
+        "Fixed 25+ production issues with no new bugs.",
+        "Mentored junior developers."
       ]
     }
   ],
@@ -148,94 +141,70 @@ export const PORTFOLIO_DATA = {
     {
       id: "collections",
       modalId: "modal-collections",
-      badge: "Production Active",
-      badgeColor: "emerald",
-      title: "Loan Collections Platform & Strategy Engine",
-      tagline: "End-to-end debt collection engine handling 14K+ monthly cases with automated scheduling & multi-channel outreach.",
+      badge: "Live",
+      title: "Loan Collections Platform",
+      tagline: "Helps lenders follow up on overdue loans automatically, with reminders by WhatsApp, SMS, calls and post.",
       duration: "Dec 2025 – Present",
-      role: "Sole Backend Developer",
+      role: "Backend Developer",
       techStack: ["Java 21", "Spring Boot 3", "PostgreSQL", "Redis", "Spring Scheduler", "AWS S3", "MSG91", "India Post"],
       metrics: [
-        { label: "Monthly Cases", value: "14,000+" },
-        { label: "Batch Ingestion", value: "1K/chunk" },
-        { label: "Notice Tracking", value: "Real-time" }
+        { label: "Cases a month", value: "14,000+" },
+        { label: "Records per batch", value: "1,000" },
+        { label: "Legal notices", value: "Tracked live" }
       ],
-      bulletPoints: [
-        "Sole backend developer: built complete PostgreSQL relational schema and Spring Boot 3 REST APIs end to end.",
-        "Rule-based strategy engine evaluating DPD, overdue balances, and regional parameters with automated cron scheduling.",
-        "Asynchronous CSV batch ingestion processing large borrower uploads in 1,000-record chunks without thread starvation.",
-        "Integrated MSG91 (WhatsApp, SMS, IVR, OTP) and India Post API for registered legal notice tracking."
-      ],
-      hasCaseStudy: true
+      hasCaseStudy: true,
+      videoUrl: "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260518_003132_8b7edcb6-c64d-4a52-a9ca-879942e122ad.mp4"
     },
     {
       id: "payments",
       modalId: "modal-payments",
-      badge: "Production Active",
-      badgeColor: "cyan",
-      title: "Fintech Payments Bridge (PhonePe)",
-      tagline: "Unified merchant payment gateway middleware handling online and offline checkout flows, webhooks, and auto-refunds.",
+      badge: "Live",
+      title: "PhonePe Payments Bridge",
+      tagline: "Lets businesses accept PhonePe payments by QR code, link or autopay, with refunds handled automatically.",
       duration: "Aug 2025 – Dec 2025",
-      role: "Backend Architect & Developer",
+      role: "Backend Developer",
       techStack: ["Java 21", "Spring Boot 3", "PostgreSQL", "PhonePe APIs", "JWT", "Spring Security", "React"],
       metrics: [
-        { label: "Success Rate", value: "99.9%" },
-        { label: "Reconciliation", value: "Automated" },
-        { label: "Isolation", value: "Multi-tenant" }
+        { label: "Payment success", value: "99.9%" },
+        { label: "Refunds", value: "Automatic" },
+        { label: "Businesses", value: "Many" }
       ],
-      bulletPoints: [
-        "Implemented full PhonePe suite: Dynamic QR, Payment Links, Collect Calls, Autopay, and Gateway checkout.",
-        "Built resilient webhook ingestion pipeline verifying HMAC signatures and updating internal payment state machines.",
-        "Automated cancellation for expired payment requests and orchestrated one-click merchant refund processing.",
-        "Configured multi-merchant onboarding with JWT-based role isolation and transaction audit logs."
-      ],
-      hasCaseStudy: true
+      hasCaseStudy: true,
+      videoUrl: "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260606_131516_eca35265-ea66-4fbd-8d52-22aae6e1a503.mp4"
     },
     {
       id: "gold-ai",
-      modalId: undefined,
-      badge: "Production Active",
-      badgeColor: "amber",
-      title: "Gold AI Valuation & Lending Middleware",
-      tagline: "High-concurrency microservice orchestrating 5 computer vision AI models for automated collateral assessment.",
+      modalId: "modal-gold-ai",
+      badge: "Live",
+      title: "Gold AI Loan Valuation",
+      tagline: "Values gold jewellery from photos using 5 AI models, so loans can be approved in minutes.",
       duration: "Jul 2026 – Present",
-      role: "Lead Backend Developer",
+      role: "Backend Developer",
       techStack: ["Java 21", "Spring Boot 3", "PostgreSQL", "AWS S3", "JWT RBAC", "Computer Vision AI"],
       metrics: [
-        { label: "AI Models", value: "5 Pipeline" },
-        { label: "Valuation", value: "Automated" },
-        { label: "Security", value: "Tenant RBAC" }
+        { label: "AI models", value: "5" },
+        { label: "Gold valuation", value: "Automatic" },
+        { label: "Fraud checks", value: "Built in" }
       ],
-      bulletPoints: [
-        "Orchestrated 5 deep-learning models: clarity check, ornament detection, fraud check, weight detection, and stone segmentation.",
-        "Streamlined asset image uploads to Amazon S3 with pre-signed URLs and parallelized asynchronous AI inference calls.",
-        "Built loan value computation engine factoring in real-time gold market rates, purity coefficients, and stone deductions.",
-        "Maintained reference fraud dataset in AWS S3 for cross-comparison with incoming collateral submissions."
-      ],
-      hasCaseStudy: false
+      hasCaseStudy: true,
+      videoUrl: "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260806_133255_956f653f-5d80-4b06-abd5-0f46c98b60fa.mp4"
     },
     {
       id: "lendly",
       modalId: "modal-lendly",
-      badge: "Core Enterprise",
-      badgeColor: "indigo",
-      title: "Lendly Loan Management & Underwriting Engine",
-      tagline: "Enterprise loan lifecycle engine integrating multi-bureau credit decisioning and identity verification.",
+      badge: "Enterprise",
+      title: "Lendly Loan Management",
+      tagline: "A loan app for US lenders that checks credit and identity automatically before approving a loan.",
       duration: "Jun 2022 – Mar 2025",
-      role: "Java Backend Engineer",
+      role: "Java Backend Developer",
       techStack: ["Java 8", "Spring Boot", "Spring Data JPA", "Oracle DB", "SQL Server", "Equifax API", "Clarity API"],
       metrics: [
-        { label: "Manual Effort", value: "-90%" },
-        { label: "Query Latency", value: "-40%" },
-        { label: "Post-release Bugs", value: "Zero" }
+        { label: "Less manual work", value: "90%" },
+        { label: "Faster queries", value: "40%" },
+        { label: "Bugs after release", value: "Zero" }
       ],
-      bulletPoints: [
-        "Built mission-critical backend REST APIs powering loan origination, validation, customer KYC, and repayment schedules.",
-        "Integrated credit and fraud underwriting bureaus (CLARITY, MLA, FACTOR TRUST, EQUIFAX) via flexible YAML configurations.",
-        "Engineered automatic rule evaluator checking SSN, date of birth, income eligibility, and bankruptcy history.",
-        "Tuned high-volume SQL queries and JPA execution plans, dropping database query latency by over 40%."
-      ],
-      hasCaseStudy: true
+      hasCaseStudy: true,
+      videoUrl: "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_154629_a31a2372-bd54-4f7e-ac9b-21246141a664.mp4"
     }
   ],
   skills: [
@@ -312,24 +281,6 @@ export const PORTFOLIO_DATA = {
       ]
     }
   ],
-  engineeringApproach: [
-    {
-      title: "Clean Code & Low-Level Design",
-      desc: "Strict adherence to SOLID principles, Factory, and Singleton patterns ensuring service-layer maintainability and decoupling from vendor APIs."
-    },
-    {
-      title: "Resilient Distributed Systems",
-      desc: "Idempotent payment webhooks, database transaction isolation, Redis caching, and automated retry mechanisms for zero data loss."
-    },
-    {
-      title: "High Throughput & Batch Processing",
-      desc: "Non-blocking chunked batch execution (1,000 records/chunk) and cron strategy engines capable of processing tens of thousands of loan accounts."
-    },
-    {
-      title: "Defense-in-Depth Security",
-      desc: "Spring Security filter chains with stateless JWT validation, fine-grained Role-Based Access Control (RBAC), and strict multi-tenant data boundaries."
-    }
-  ],
   education: [
     {
       degree: "B.Tech in Electrical and Electronics Engineering",
@@ -358,26 +309,21 @@ export const PORTFOLIO_DATA = {
       name: "Spring Boot (Essential Skills)",
       issuer: "Scaler",
       skills: "Spring Boot 3, Dependency Injection, REST APIs, JPA, Actuator",
-      badge: "Framework Mastery",
-      badgeColor: "emerald"
+      badge: "Framework Mastery"
     },
     {
       name: "Master Java Concurrency & Multithreading",
       issuer: "Scaler",
       skills: "Thread Pools, Synchronizers, CompletableFuture, Concurrent Collections",
       badge: "Core Engineering",
-      badgeColor: "cyan",
-      image: "/certificates/java-concurrency-multithreading.png",
-      pdfUrl: "/Certificate_Master Java Concurrency & Multithreading.pdf"
+      image: "/certificates/java-concurrency-multithreading.png"
     },
     {
       name: "SQL Using AI",
       issuer: "AI for Techies",
       skills: "Advanced Query Optimization, Analytical Functions, Index Strategy",
       badge: "AI & Databases",
-      badgeColor: "violet",
-      image: "/certificates/sql-with-ai.png",
-      pdfUrl: "/SQL_With_AI_Certificate.pdf"
+      image: "/certificates/sql-with-ai.png"
     }
   ]
 };

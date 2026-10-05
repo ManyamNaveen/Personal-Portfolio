@@ -1,7 +1,6 @@
 export interface CaseStudyData {
   id: string;
   badge: string;
-  badgeColor: string;
   title: string;
   problem: string;
   solution: string;
@@ -11,41 +10,50 @@ export interface CaseStudyData {
 export const CASE_STUDIES: Record<string, CaseStudyData> = {
   "modal-collections": {
     id: "modal-collections",
-    badge: "FINTECH RECOVERY",
-    badgeColor: "violet",
-    title: "Collections Platform Architecture",
-    problem: "Lenders struggled with manual, uncoordinated outreach to delinquent borrowers. High volume ingestion from the primary LOS choked previous systems, and there was no unified rule mechanism to trigger SMS, IVR calls, and physical India Post notices simultaneously.",
-    solution: "As the sole backend developer, Naveen architected an asynchronous chunked batch ingestion pipeline processing 1,000 records per transaction chunk. Implemented a dynamic rule strategy engine backed by Spring Scheduler allowing collections managers to formulate automated recovery workflows by DPD, location, and balance tier.",
+    badge: "Loan collections",
+    title: "Loan Collections Platform",
+    problem: "Lenders were chasing overdue loans by hand. Large customer files slowed the old system down, and there was no single place to send SMS, calls and legal notices.",
+    solution: "I built a system that imports customer files in batches of 1,000 and a rules engine that decides who to contact, when, and how, based on how late the payment is, the amount owed and the location.",
     impact: [
-      "Successfully processes ~14,000 delinquent cases per month in live production.",
-      "Zero system degradation during batch CSV uploads and simultaneous telecalling triggers.",
-      "Automated physical postal notices tracking via India Post API integration."
+      "Handles about 14,000 overdue loan cases every month in production.",
+      "Large file uploads no longer slow down the rest of the app.",
+      "Legal notices sent through India Post are tracked automatically."
     ]
   },
   "modal-payments": {
     id: "modal-payments",
-    badge: "PAYMENTS MIDDLEWARE",
-    badgeColor: "emerald",
+    badge: "Payments",
     title: "PhonePe Payments Bridge",
-    problem: "Multiple partner merchants required unified settlement and real-time payment reconciliation across disparate retail channels (Dynamic QR, Collect Calls, and online checkouts) without exposing core database credentials.",
-    solution: "Engineered a multi-tenant middleware using Spring Boot 3 and Java 21. Created an idempotent webhook receiver to process PhonePe transaction callbacks, automated refund verification routines, and built a tokenized merchant onboarding system protected with JWT and RBAC.",
+    problem: "Several businesses needed one simple way to accept PhonePe payments, by QR code, payment link or online checkout, and to know instantly when a payment went through.",
+    solution: "I built a secure service between the businesses and PhonePe. It receives PhonePe's payment updates, confirms each payment, handles refunds, and keeps every business's data separate with role-based logins.",
     impact: [
-      "Zero duplicate settlement issues recorded through idempotent webhook handling.",
-      "Seamless integration directly into the Collections Platform for automated loan repayments.",
-      "Support for full PhonePe suite (Dynamic QR, Payment Links, Collect Calls, Autopay, Payment Gateway)."
+      "No payment is ever recorded twice, even when PhonePe sends the same update again.",
+      "Plugged straight into the Collections platform so borrowers can repay online.",
+      "Supports QR codes, payment links, collect requests, autopay and online checkout."
     ]
   },
   "modal-lendly": {
     id: "modal-lendly",
-    badge: "ENTERPRISE LOANS",
-    badgeColor: "cyan",
-    title: "Lendly Underwriting Decision Engine",
-    problem: "Manual loan underwriting and manual cross-referencing of credit bureaus resulted in slow customer approvals and high operational costs for US lending applications.",
-    solution: "Constructed an automated Decision-Engine & Inquiry module integrating CLARITY, MLA, FACTOR TRUST, and EQUIFAX. Optimized database indexing, query joins, and implemented Factory patterns to abstract bureau-specific API calls.",
+    badge: "Loan approvals",
+    title: "Lendly Loan Management",
+    problem: "Staff were checking every loan application by hand against several US credit bureaus, which made approvals slow and expensive.",
+    solution: "I built automatic checks that call the credit bureaus (Clarity, MLA, Factor Trust and Equifax) and apply the approval rules, and I sped up the slowest database queries.",
     impact: [
-      "Reduced manual verification overhead by 90%.",
-      "Reduced SQL query latency across complex user queries by over 40%.",
-      "Resolved 25+ production issues with zero post-release regressions; earned Employee of the Month honors within 3 months."
+      "Cut manual review work by 90%.",
+      "Made key database queries over 40% faster.",
+      "Fixed 25+ production issues with no new bugs, and earned Employee of the Month within 3 months."
+    ]
+  },
+  "modal-gold-ai": {
+    id: "modal-gold-ai",
+    badge: "AI valuation",
+    title: "Gold AI Loan Valuation",
+    problem: "To give a gold loan, an expert had to inspect the jewellery in person. That was slow, results varied from person to person, and fakes could slip through.",
+    solution: "I built a service that sends photos of the jewellery to 5 AI models at the same time: quality, item type, fraud, weight and stones. It then combines their answers with the current gold price to work out the loan amount.",
+    impact: [
+      "Gets results from all 5 AI models in under 2.5 seconds.",
+      "Loan values are calculated automatically, with no manual maths.",
+      "Each photo is compared against known fraud cases, and each client's data is kept separate."
     ]
   }
 };

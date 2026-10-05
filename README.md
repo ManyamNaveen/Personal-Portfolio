@@ -7,7 +7,7 @@ A modern, high-performance personal portfolio built with **Next.js 13**, **React
 ## ⚡ Key Features
 
 - **Production-Grade Next.js Architecture**: Optimized app router structure, zero layout shifts, and server-side static page generation.
-- **Dual Theme Engine (Dark & Light)**: Synchronous, zero-flicker light and dark mode with rich ambient mesh gradients, tinted frosted glassmorphism, and WCAG-compliant high contrast.
+- **Cinematic Hero + Scroll Animations**: Video hero with stroke-drawn name and parallax, plus scroll-triggered reveals (Motion) as each section lands.
 - **Interactive Case Studies**: In-depth architecture breakdowns for Payments Bridge, Collections Platform, and Decision Engine with responsive modal dialogs.
 - **Full Contact System**:
   - **Direct Email Delivery**: Form submissions delivered straight to your Gmail inbox via Nodemailer.
@@ -20,9 +20,9 @@ A modern, high-performance personal portfolio built with **Next.js 13**, **React
 
 - **Framework**: Next.js 13 (App Router)
 - **Language**: TypeScript
-- **Styling**: Tailwind CSS, Vanilla CSS Animations, Glassmorphism
+- **Styling & Motion**: Tailwind CSS, Motion, Lucide icons
 - **Mail & Communication**: Nodemailer, WhatsApp Click-to-Chat Protocol
-- **Font**: Inter & Poppins (Google Fonts)
+- **Fonts**: Manrope, Inter & Space Grotesk, self-hosted via next/font/local
 
 ---
 

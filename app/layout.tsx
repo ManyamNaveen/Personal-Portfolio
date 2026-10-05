@@ -1,18 +1,27 @@
 import './globals.css';
 import type { Metadata } from 'next';
-import { Inter, JetBrains_Mono } from 'next/font/google';
-import { ThemeProvider } from '@/components/ThemeProvider';
+import localFont from 'next/font/local';
 
-const inter = Inter({
-  subsets: ['latin'],
+// Self-hosted (Latin, variable weight) so builds and dev never depend on reaching Google Fonts
+const manrope = localFont({
+  src: './fonts/Manrope-Variable.woff2',
+  weight: '200 800',
+  display: 'swap',
+  variable: '--font-manrope',
+});
+
+const inter = localFont({
+  src: './fonts/Inter-Variable.woff2',
+  weight: '100 900',
   display: 'swap',
   variable: '--font-inter',
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
+const spaceGrotesk = localFont({
+  src: './fonts/SpaceGrotesk-Variable.woff2',
+  weight: '300 700',
   display: 'swap',
-  variable: '--font-mono',
+  variable: '--font-grotesk',
 });
 
 export const metadata: Metadata = {
@@ -47,33 +56,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`scroll-smooth dark ${inter.variable} ${jetbrainsMono.variable}`}>
-      <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var params = new URLSearchParams(window.location.search);
-                  var queryTheme = params.get('theme');
-                  var saved = localStorage.getItem('mn-theme');
-                  var theme = queryTheme || saved || 'dark';
-                  if (theme === 'light') {
-                    document.documentElement.classList.remove('dark');
-                  } else {
-                    document.documentElement.classList.add('dark');
-                  }
-                } catch (e) {}
-              })();
-            `,
-          }}
-        />
-      </head>
-      <body className="antialiased selection:bg-cyan-500/30 selection:text-cyan-200">
-        <ThemeProvider>
-          {children}
-        </ThemeProvider>
+    <html
+      lang="en"
+      className={`scroll-smooth ${manrope.variable} ${inter.variable} ${spaceGrotesk.variable}`}
+    >
+      <body className="antialiased selection:bg-cyan-200 selection:text-slate-900">
+        {children}
       </body>
     </html>
   );

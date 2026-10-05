@@ -1,6 +1,8 @@
 'use client';
 
 import React, { useEffect } from 'react';
+import { AnimatePresence, motion } from 'motion/react';
+import { Check, X } from 'lucide-react';
 import { CASE_STUDIES } from '@/data/caseStudies';
 
 interface CaseStudyModalProps {
@@ -9,8 +11,10 @@ interface CaseStudyModalProps {
 }
 
 export default function CaseStudyModal({ modalId, onClose }: CaseStudyModalProps) {
+  const data = modalId ? CASE_STUDIES[modalId] : undefined;
+
   useEffect(() => {
-    if (!modalId) return;
+    if (!data) return;
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
@@ -20,75 +24,77 @@ export default function CaseStudyModal({ modalId, onClose }: CaseStudyModalProps
     window.addEventListener('keydown', handleKeyDown);
 
     return () => {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = '';
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [modalId, onClose]);
-
-  if (!modalId) return null;
-  const data = CASE_STUDIES[modalId];
-  if (!data) return null;
+  }, [data, onClose]);
 
   return (
-    <div
-      aria-modal="true"
-      className="case-study-modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-in fade-in duration-200"
-      role="dialog"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) onClose();
-      }}
-    >
-      <div className="glass-card max-w-2xl w-full rounded-2xl p-6 sm:p-8 max-h-[90vh] overflow-y-auto border border-white/20 shadow-2xl">
-        <div className="flex items-center justify-between pb-4 border-b border-white/10">
-          <div>
-            <span className={`text-xs font-mono font-semibold text-${data.badgeColor}-400`}>
-              CASE STUDY • {data.badge}
-            </span>
-            <h3 className="text-xl font-bold text-white mt-0.5">{data.title}</h3>
-          </div>
-          <button
-            aria-label="Close modal"
-            className="close-modal text-slate-400 hover:text-white p-1 rounded-lg transition-colors focus:outline-none"
-            type="button"
-            onClick={onClose}
+    <AnimatePresence>
+      {data && (
+        <motion.div
+          key={data.id}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="case-study-title"
+          className="fixed inset-0 z-[70] flex items-center justify-center bg-slate-950/70 p-4 backdrop-blur-sm"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget) onClose();
+          }}
+        >
+          <motion.div
+            className="max-h-[90vh] w-full max-w-2xl overflow-y-auto rounded-3xl bg-white p-6 sm:p-9 shadow-2xl"
+            initial={{ opacity: 0, y: 40, scale: 0.97 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 24, scale: 0.98 }}
+            transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path d="M6 18L18 6M6 6l12 12" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"></path>
-            </svg>
-          </button>
-        </div>
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-cyan-700">
+                  Case study · {data.badge}
+                </p>
+                <h3 id="case-study-title" className="mt-2 font-display text-2xl font-bold text-slate-900">
+                  {data.title}
+                </h3>
+              </div>
+              <button
+                type="button"
+                aria-label="Close case study"
+                onClick={onClose}
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-slate-100 text-slate-600 hover:bg-slate-200"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
 
-        <div className="space-y-4 py-4 text-xs sm:text-sm text-slate-300">
-          <div>
-            <h4 className="font-bold text-cyan-400 uppercase font-mono text-xs mb-1">The Problem</h4>
-            <p className="leading-relaxed">{data.problem}</p>
-          </div>
-
-          <div>
-            <h4 className="font-bold text-cyan-400 uppercase font-mono text-xs mb-1">Architecture &amp; Solutions</h4>
-            <p className="leading-relaxed">{data.solution}</p>
-          </div>
-
-          <div>
-            <h4 className="font-bold text-cyan-400 uppercase font-mono text-xs mb-1">Measurable Impact</h4>
-            <ul className="list-disc list-inside space-y-1.5 leading-relaxed">
-              {data.impact.map((item, idx) => (
-                <li key={idx}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <div className="pt-4 border-t border-white/10 flex justify-end">
-          <button
-            className="close-modal px-5 py-2.5 rounded-lg bg-slate-800 text-xs font-mono text-slate-200 hover:bg-slate-700 hover:text-white transition-colors"
-            type="button"
-            onClick={onClose}
-          >
-            Close Window
-          </button>
-        </div>
-      </div>
-    </div>
+            <div className="mt-7 space-y-6 text-[15px] leading-relaxed text-slate-600">
+              <div>
+                <h4 className="font-semibold text-slate-900">The problem</h4>
+                <p className="mt-1.5">{data.problem}</p>
+              </div>
+              <div>
+                <h4 className="font-semibold text-slate-900">What I built</h4>
+                <p className="mt-1.5">{data.solution}</p>
+              </div>
+              <div>
+                <h4 className="font-semibold text-slate-900">Impact</h4>
+                <ul className="mt-2 space-y-2">
+                  {data.impact.map((item) => (
+                    <li key={item} className="flex gap-2.5">
+                      <Check className="mt-1 h-4 w-4 shrink-0 text-emerald-600" strokeWidth={2.5} />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

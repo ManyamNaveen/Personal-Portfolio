@@ -44,7 +44,6 @@ ${message}`;
     const resendApiKey = process.env.RESEND_API_KEY;
 
     let emailSent = false;
-    let emailError: string | null = null;
 
     if (gmailPass) {
       try {
@@ -95,7 +94,6 @@ ${message}`;
         emailSent = true;
       } catch (err: any) {
         console.error('[Contact API] Failed to send via Gmail SMTP:', err.message);
-        emailError = err.message;
       }
     } else if (resendApiKey) {
       try {
@@ -118,11 +116,10 @@ ${message}`;
           emailSent = true;
         } else {
           const errData = await res.json();
-          emailError = errData.message || 'Resend API error';
+          console.error('[Contact API] Resend rejected the email:', errData.message || res.status);
         }
       } catch (err: any) {
         console.error('[Contact API] Failed to send via Resend:', err.message);
-        emailError = err.message;
       }
     } else {
       // In dev or until credentials are provided in .env.local

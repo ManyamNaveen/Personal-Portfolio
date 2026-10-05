@@ -1,35 +1,34 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import Navbar from '@/components/Navbar';
 import Hero from '@/components/Hero';
-import Stats from '@/components/Stats';
 import About from '@/components/About';
 import Experience from '@/components/Experience';
 import Projects from '@/components/Projects';
 import Skills from '@/components/Skills';
-import Architecture from '@/components/Architecture';
 import Education from '@/components/Education';
 import ResumeBanner from '@/components/ResumeBanner';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import CaseStudyModal from '@/components/CaseStudyModal';
+import { ScrollProgress } from '@/components/Reveal';
 
 export default function Home() {
   const [activeModalId, setActiveModalId] = useState<string | null>(null);
+  const closeModal = useCallback(() => setActiveModalId(null), []);
 
   return (
     <>
+      <ScrollProgress />
       <Navbar />
 
-      <main className="mesh-gradient pt-16 sm:pt-20">
+      <main>
         <Hero />
-        <Stats />
+        <Projects onOpenModal={setActiveModalId} />
         <About />
         <Experience />
-        <Projects onOpenModal={(id) => setActiveModalId(id)} />
         <Skills />
-        <Architecture />
         <Education />
         <ResumeBanner />
         <Contact />
@@ -37,10 +36,7 @@ export default function Home() {
 
       <Footer />
 
-      <CaseStudyModal
-        modalId={activeModalId}
-        onClose={() => setActiveModalId(null)}
-      />
+      <CaseStudyModal modalId={activeModalId} onClose={closeModal} />
     </>
   );
 }

@@ -1,154 +1,123 @@
 'use client';
 
 import React from 'react';
-import { useScrollReveal } from '@/components/useScrollReveal';
-import TypewriterText from '@/components/TypewriterText';
+import { Cloud, CodeXml, Cpu, Database, GitMerge, Layers, type LucideIcon } from 'lucide-react';
+import { PORTFOLIO_DATA } from '@/data/portfolioData';
+import SectionHeading from '@/components/SectionHeading';
+import { Reveal, RevealGroup, RevealItem } from '@/components/Reveal';
 
-const SKILL_GROUPS = [
-  {
-    num: '01',
-    title: 'Languages & Core',
-    iconSymbol: '☕',
-    iconColor: 'from-cyan-500/20 to-blue-500/20 text-cyan-400 border-cyan-500/30',
-    skills: [
-      { name: 'Java 21', symbol: '☕', highlight: true },
-      { name: 'Java 8', symbol: '☕', highlight: false },
-      { name: 'SQL (Advanced)', symbol: '💾', highlight: true },
-      { name: 'Multithreading & Concurrency', symbol: '⚡', highlight: true },
-      { name: 'Streams & Lambdas', symbol: '🔄', highlight: false },
-      { name: 'OOP & SOLID Principles', symbol: '🏛️', highlight: false },
-    ],
-  },
-  {
-    num: '02',
-    title: 'Frameworks & Libraries',
-    iconSymbol: '🍃',
-    iconColor: 'from-emerald-500/20 to-teal-500/20 text-emerald-400 border-emerald-500/30',
-    skills: [
-      { name: 'Spring Boot 3', symbol: '🍃', highlight: true },
-      { name: 'Spring MVC', symbol: '🌐', highlight: false },
-      { name: 'Spring Security (JWT, RBAC)', symbol: '🔒', highlight: true },
-      { name: 'Spring Data JPA', symbol: '🗄️', highlight: false },
-      { name: 'Hibernate', symbol: '📦', highlight: false },
-      { name: 'Spring Scheduler', symbol: '⏱️', highlight: false },
-    ],
-  },
-  {
-    num: '03',
-    title: 'Databases & Caching',
-    iconSymbol: '🐘',
-    iconColor: 'from-violet-500/20 to-purple-500/20 text-violet-400 border-violet-500/30',
-    skills: [
-      { name: 'PostgreSQL', symbol: '🐘', highlight: true },
-      { name: 'Redis', symbol: '🔴', highlight: true },
-      { name: 'Oracle DB', symbol: '🏛️', highlight: false },
-      { name: 'SQL Server', symbol: '🗃️', highlight: false },
-      { name: 'AWS S3 Storage', symbol: '☁️', highlight: false },
-    ],
-  },
-  {
-    num: '04',
-    title: 'Cloud & DevOps',
-    iconSymbol: '☁️',
-    iconColor: 'from-amber-500/20 to-yellow-500/20 text-amber-400 border-amber-500/30',
-    skills: [
-      { name: 'AWS (EC2, S3, IAM)', symbol: '☁️', highlight: false },
-      { name: 'Docker', symbol: '🐳', highlight: true },
-      { name: 'Git & GitHub', symbol: '🐙', highlight: false },
-      { name: 'Maven', symbol: '📦', highlight: false },
-      { name: 'Postman', symbol: '📮', highlight: false },
-      { name: 'Swagger / OpenAPI', symbol: '📑', highlight: true },
-      { name: 'SNS / SQS', symbol: '📨', highlight: false },
-    ],
-  },
-  {
-    num: '05',
-    title: 'APIs & Integrations',
-    iconSymbol: '🔌',
-    iconColor: 'from-cyan-500/20 to-emerald-500/20 text-cyan-300 border-cyan-500/30',
-    skills: [
-      { name: 'RESTful Web Services', symbol: '⚡', highlight: true },
-      { name: 'PhonePe Gateway', symbol: '💳', highlight: true },
-      { name: 'MSG91 (WhatsApp/SMS/IVR)', symbol: '📱', highlight: true },
-      { name: 'India Post Tracking', symbol: '📮', highlight: false },
-      { name: 'Credit Bureaus (Equifax/Clarity)', symbol: '🏦', highlight: true },
-      { name: 'SOAP & XML', symbol: '📜', highlight: false },
-    ],
-  },
-  {
-    num: '06',
-    title: 'Architecture & Patterns',
-    iconSymbol: '📐',
-    iconColor: 'from-indigo-500/20 to-cyan-500/20 text-indigo-300 border-indigo-500/30',
-    skills: [
-      { name: 'Low-Level Design (LLD)', symbol: '📐', highlight: true },
-      { name: 'Factory & Singleton Patterns', symbol: '🏭', highlight: false },
-      { name: 'Multi-Tenant Architecture', symbol: '🏢', highlight: true },
-      { name: 'Async Batch Processing', symbol: '⏱️', highlight: true },
-      { name: 'Clean Layered Architecture', symbol: '🏛️', highlight: false },
-      { name: 'React Frontend Integration', symbol: '⚛️', highlight: false },
-    ],
-  },
+const CATEGORY_ICONS: Record<string, LucideIcon> = {
+  code: CodeXml,
+  layers: Layers,
+  database: Database,
+  cloud: Cloud,
+  cpu: Cpu,
+  'git-merge': GitMerge,
+};
+
+const LOGOS = [
+  { name: 'Spring Boot', src: '/logos/springboot.svg' },
+  { name: 'Java 21', src: '/logos/java.svg' },
+  { name: 'PostgreSQL', src: '/logos/postgresql.svg' },
+  { name: 'Redis', src: '/logos/redis.svg' },
+  { name: 'Docker', src: '/logos/docker.svg' },
+  { name: 'Apache Kafka', src: '/logos/kafka.svg' },
+  { name: 'JWT Auth', src: '/logos/jwt_icon.svg' },
+  { name: 'PhonePe', src: '/logos/phonepe_icon.svg' },
+  { name: 'MSG91', src: '/logos/msg91_icon.svg' },
+  { name: 'India Post', src: '/logos/indiapost_icon.svg' },
 ];
 
 export default function Skills() {
-  const sectionRef = useScrollReveal();
-
   return (
-    <section 
-      ref={sectionRef}
-      className="reveal-section max-w-[1600px] 2xl:max-w-[1720px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 py-5 sm:py-7 border-t border-slate-200 dark:border-white/5" 
-      id="skills"
-    >
-      <div className="mb-6 sm:mb-8 stagger-item stagger-1">
-        <div className="inline-flex items-center gap-2 text-cyan-800 dark:text-cyan-400 font-mono text-xs uppercase tracking-wider mb-2 px-3 py-1 rounded-full bg-cyan-100 dark:bg-cyan-950/40 border border-cyan-300 dark:border-cyan-500/30 font-bold">
-          <span className="w-2 h-2 rounded-full bg-cyan-600 dark:bg-cyan-400 radar-beacon-cyan"></span>
-          Technical Proficiencies
-        </div>
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-3">
-          <span>🛠️</span>
-          <TypewriterText text="Technical Skills & Core Tooling" />
-        </h2>
-        <p className="text-slate-600 dark:text-slate-400 text-sm mt-1">
-          Categorized expertise derived from 3.8+ years of production engineering.
-        </p>
-      </div>
+    <section id="skills" className="bg-slate-50 py-16 sm:py-24 overflow-hidden">
+      <div className="page-container">
+        <SectionHeading
+          eyebrow="Tech stack"
+          title="Skills"
+          description="The languages and tools I work with."
+        />
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {SKILL_GROUPS.map((group, idx) => (
-          <div 
-            key={idx} 
-            className={`glass-card interactive-card gradient-beam-top p-6 rounded-2xl border border-white/10 stagger-item stagger-${idx + 1}`}
-          >
-            <div className="flex items-center justify-between mb-5">
-              <div className="flex items-center gap-3">
-                <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${group.iconColor} border flex items-center justify-center font-bold text-base shadow-sm`}>
-                  {group.iconSymbol}
-                </div>
-                <div>
-                  <h3 className="text-white font-bold text-base tracking-tight">{group.title}</h3>
-                  <span className="text-[10px] font-mono text-slate-400">Category {group.num}</span>
-                </div>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              {group.skills.map((skill, sIdx) => (
-                <span
-                  key={sIdx}
-                  className={`tech-tag-interactive px-3 py-1.5 rounded-lg text-xs font-mono flex items-center gap-1.5 shadow-sm ${
-                    skill.highlight
-                      ? 'bg-slate-900 border border-cyan-500/40 text-cyan-300 shadow-[0_0_12px_rgba(6,182,212,0.12)]'
-                      : 'bg-slate-900 border border-slate-700/80 text-slate-200'
-                  }`}
-                >
-                  <span className="text-[13px]">{skill.symbol}</span>
-                  <span>{skill.name}</span>
-                </span>
-              ))}
+        {/* Core stack banner */}
+        <Reveal className="mt-12 sm:mt-16">
+          <div className="relative h-[300px] sm:h-[380px] overflow-hidden rounded-[32px] border border-slate-200 bg-white">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              aria-hidden="true"
+              className="absolute inset-0 w-full h-full object-cover"
+              src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260505_101331_74f9b798-3f00-4e86-8a01-377aa16ffeaa.mp4"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-white/80 via-white/40 to-transparent" />
+            <div className="relative h-full flex flex-col justify-center px-8 sm:px-14 max-w-xl">
+              <span className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">Core stack</span>
+              <h3 className="mt-3 font-display text-3xl sm:text-5xl font-bold tracking-tight leading-[1.1] text-slate-900">
+                Java 21 &amp;
+                <br />
+                Spring Boot 3
+              </h3>
+              <p className="mt-4 text-base text-slate-600">
+                My main tools for building fast, secure backend systems.
+              </p>
             </div>
           </div>
-        ))}
+        </Reveal>
+      </div>
+
+      {/* Logo marquee */}
+      <Reveal className="mt-10 mask-fade-x" y={24}>
+        <div className="animate-marquee gap-3 py-2">
+          {[...LOGOS, ...LOGOS].map((logo, index) => (
+            <div
+              key={`${logo.name}-${index}`}
+              aria-hidden={index >= LOGOS.length}
+              className="shrink-0 flex items-center gap-2.5 h-12 px-5 rounded-full bg-white border border-slate-200 select-none"
+            >
+              <img src={logo.src} alt="" className="h-5 w-5 object-contain" />
+              <span className="text-sm font-semibold text-slate-800 whitespace-nowrap">{logo.name}</span>
+            </div>
+          ))}
+        </div>
+      </Reveal>
+
+      {/* Skill categories */}
+      <div className="page-container">
+        <RevealGroup className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {PORTFOLIO_DATA.skills.map((category) => {
+            const Icon = CATEGORY_ICONS[category.icon] ?? CodeXml;
+            return (
+              <RevealItem key={category.title} className="h-full">
+                <div className="group h-full rounded-3xl bg-white border border-slate-200 p-6 sm:p-7 transition-all duration-300 hover:-translate-y-1 hover:border-cyan-300 hover:shadow-[0_20px_45px_-20px_rgba(8,145,178,0.35)]">
+                  <div className="flex items-center gap-3">
+                    <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-700 transition-colors group-hover:bg-cyan-600 group-hover:text-white">
+                      <Icon className="h-5 w-5" strokeWidth={1.8} />
+                    </span>
+                    <h3 className="font-display text-lg font-bold text-slate-900">{category.title}</h3>
+                  </div>
+                  <ul className="mt-5 flex flex-wrap gap-2">
+                    {category.skills.map((skill) => (
+                      <li
+                        key={skill.name}
+                        className={`rounded-full px-3 py-1 text-[13px] ${
+                          skill.isCore
+                            ? 'bg-cyan-50 text-cyan-900 font-medium ring-1 ring-inset ring-cyan-200'
+                            : 'bg-slate-50 text-slate-600'
+                        }`}
+                      >
+                        {skill.name}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </RevealItem>
+            );
+          })}
+        </RevealGroup>
+        <Reveal className="mt-6 flex items-center gap-2 text-sm text-slate-500" y={16}>
+          <span className="h-3 w-3 rounded-full bg-cyan-100 ring-1 ring-cyan-300" /> Highlighted: the skills I use most
+        </Reveal>
       </div>
     </section>
   );
