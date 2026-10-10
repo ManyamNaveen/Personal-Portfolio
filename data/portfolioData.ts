@@ -10,6 +10,8 @@ export interface ProjectItem {
   metrics: { label: string; value: string }[];
   hasCaseStudy: boolean;
   videoUrl?: string;
+  demoUrl?: string;
+  imageUrl?: string;
 }
 
 export interface ExperienceItem {
@@ -52,7 +54,7 @@ export interface EducationItem {
 }
 
 export const PORTFOLIO_DATA: {
-  personal: Record<'name' | 'title' | 'location' | 'phone' | 'email' | 'linkedin' | 'github' | 'resumeUrl', string>;
+  personal: Record<'name' | 'title' | 'location' | 'phone' | 'email' | 'linkedin' | 'github' | 'website' | 'resumeUrl', string>;
   experiences: ExperienceItem[];
   projects: ProjectItem[];
   skills: SkillCategory[];
@@ -66,7 +68,8 @@ export const PORTFOLIO_DATA: {
     phone: "+91 9398365948",
     email: "naveenmanyam12@gmail.com",
     linkedin: "https://linkedin.com/in/naveenmanyam",
-    github: "https://github.com/naveenmanyam",
+    github: "https://github.com/ManyamNaveen",
+    website: "https://www.naveenmanyam.in/",
     resumeUrl: "/resume/Manyam_Naveen_Resume_latest.pdf",
   },
   experiences: [
@@ -175,7 +178,7 @@ export const PORTFOLIO_DATA: {
     {
       id: "gold-ai",
       modalId: "modal-gold-ai",
-      badge: "Live",
+      badge: "In development",
       title: "Gold AI Loan Valuation",
       tagline: "Values gold jewellery from photos using 5 AI models, so loans can be approved in minutes.",
       duration: "Jul 2026 – Present",
@@ -205,6 +208,40 @@ export const PORTFOLIO_DATA: {
       ],
       hasCaseStudy: true,
       videoUrl: "https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_154629_a31a2372-bd54-4f7e-ac9b-21246141a664.mp4"
+    },
+    {
+      id: "audit-module",
+      badge: "Personal project",
+      title: "Bank Audit Module",
+      tagline: "Bank audit screens for planning audits, reviewing branches and loan cases, and tracking findings. Designed in Google Stitch, exported to VS Code, and implemented further with Codex.",
+      duration: "Personal project",
+      role: "Frontend Developer",
+      techStack: ["React", "TypeScript", "Vite"],
+      metrics: [
+        { label: "Audit planning", value: "Designed" },
+        { label: "Branch reviews", value: "Designed" },
+        { label: "Findings", value: "Tracked" }
+      ],
+      hasCaseStudy: false,
+      demoUrl: "https://naveens-audit-module.vercel.app/",
+      imageUrl: "/projects/audit-module.png"
+    },
+    {
+      id: "naveen-store",
+      badge: "Personal project",
+      title: "Naveen Manyam Store",
+      tagline: "A T-shirt ecommerce store built with Next.js. Personally set up Razorpay and Shiprocket accounts and API credentials, then used Codex to implement the payment and shipping integrations.",
+      duration: "Personal project",
+      role: "Full-stack Developer",
+      techStack: ["Next.js", "Razorpay", "Shiprocket"],
+      metrics: [
+        { label: "Payments", value: "Razorpay" },
+        { label: "Shipping", value: "Shiprocket" },
+        { label: "Storefront", value: "Live" }
+      ],
+      hasCaseStudy: false,
+      demoUrl: "https://naveen-manyam-store.vercel.app/",
+      imageUrl: "/projects/naveen-store.png"
     }
   ],
   skills: [

@@ -1,7 +1,8 @@
 'use client';
 
 import React from 'react';
-import { ArrowUpRight } from 'lucide-react';
+import Image from 'next/image';
+import { ArrowUpRight, ExternalLink } from 'lucide-react';
 import { PORTFOLIO_DATA } from '@/data/portfolioData';
 import SectionHeading from '@/components/SectionHeading';
 import { RevealGroup, RevealItem } from '@/components/Reveal';
@@ -18,7 +19,7 @@ export default function Projects({ onOpenModal }: ProjectsProps) {
       <SectionHeading
         eyebrow="Featured work"
         title="Projects"
-        description="Real products I built that businesses use every day."
+        description="Production systems and personal projects, from fintech platforms to customer-facing products."
       />
 
       <RevealGroup className="mt-12 sm:mt-16 grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
@@ -29,7 +30,7 @@ export default function Projects({ onOpenModal }: ProjectsProps) {
             <RevealItem key={project.id} className="h-full">
               <article className="group h-full flex flex-col overflow-hidden rounded-3xl bg-white border border-slate-200 shadow-[0_10px_40px_-12px_rgba(15,23,42,0.12)] hover:shadow-[0_24px_60px_-16px_rgba(15,23,42,0.22)] hover:-translate-y-1 transition-all duration-500">
                 {/* Media */}
-                <div className="relative aspect-[16/8] overflow-hidden bg-slate-100">
+                <div className={`relative aspect-[16/8] overflow-hidden ${project.demoUrl ? 'bg-slate-900' : 'bg-slate-100'}`}>
                   {project.videoUrl && (
                     <video
                       autoPlay
@@ -39,6 +40,15 @@ export default function Projects({ onOpenModal }: ProjectsProps) {
                       aria-hidden="true"
                       className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       src={project.videoUrl}
+                    />
+                  )}
+                  {project.imageUrl && (
+                    <Image
+                      src={project.imageUrl}
+                      alt={`${project.title} live project preview`}
+                      fill
+                      sizes="(min-width: 1024px) 50vw, 100vw"
+                      className="object-cover transition-transform duration-700 group-hover:scale-105"
                     />
                   )}
                   <span className="absolute top-4 left-4 inline-flex items-center gap-2 rounded-full bg-white/85 backdrop-blur-md px-3 py-1 text-xs font-semibold text-slate-800 shadow-sm">
@@ -89,6 +99,19 @@ export default function Projects({ onOpenModal }: ProjectsProps) {
                         View case study
                         <ArrowUpRight className="w-4 h-4" strokeWidth={2.2} />
                       </button>
+                    </div>
+                  )}
+                  {project.demoUrl && (
+                    <div className="mt-auto pt-8">
+                      <a
+                        href={project.demoUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-2 rounded-full bg-ink px-5 py-2.5 text-sm font-semibold text-white transition-all hover:bg-slate-700 hover:gap-3"
+                      >
+                        Visit live project
+                        <ExternalLink className="h-4 w-4" strokeWidth={2.2} />
+                      </a>
                     </div>
                   )}
                 </div>

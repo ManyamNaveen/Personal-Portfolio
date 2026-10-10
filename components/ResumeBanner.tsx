@@ -23,7 +23,7 @@ export default function ResumeBanner() {
             </div>
             <div className="flex flex-wrap gap-3">
               <a
-                download
+                download="Manyam_Naveen_Resume.pdf"
                 href={PORTFOLIO_DATA.personal.resumeUrl}
                 className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-ink transition-transform hover:-translate-y-0.5"
               >
